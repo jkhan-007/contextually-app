@@ -1,0 +1,22 @@
+from contextual.model.app_data import app_data, Ticket
+from contextual.model.config_settings import config_settings
+
+
+class TicketContentPresenter:
+    selected_ticket: Ticket
+
+    def __init__(self, parent_view):
+        self.parent_view = parent_view
+        self.selected_ticket = None
+        self.lbl_title = self.parent_view.lbl_ticket_title
+        self.txt_description = self.parent_view.txt_description
+        app_data.signals.ticket_changed.connect(self.refresh)
+
+    def refresh(self, ticket):
+        print("Refreshing data for ticket content")
+        jira_server, _, _ = config_settings.load_jira_configuration()
+        self.selected_ticket = ticket
+        ticket_browse_link = f"{jira_server}/browse/{self.selected_ticket.ticket_number}"
+        ticket_title = f"<a href=\"{ticket_browse_link}\">{self.selected_ticket.ticket_number}</a> - {self.selected_ticket.ticket_title} - ({self.selected_ticket.ticket_status})"
+        self.lbl_title.setText(ticket_title)
+        self.txt_description.setHtml(self.selected_ticket.ticket_description)

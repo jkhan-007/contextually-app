@@ -1,0 +1,20 @@
+{
+  "title": "Contextually",
+  "icon": "../data/icons/contextually.icns",
+  "background": "../../contextual/images/contextually.png",
+  "icon-size": 80,
+  "contents": [
+    {
+      "x": 167,
+      "y": 245,
+      "type": "file",
+      "path": "dist/contextually.app"
+    },
+    {
+      "x": 495,
+      "y": 245,
+      "type": "link",
+      "path": "/Applications"
+    }
+  ]
+}

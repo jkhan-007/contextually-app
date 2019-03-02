@@ -1,0 +1,46 @@
+language: objective-c
+os: osx
+osx_image: xcode9.2
+sudo: required
+python: '3.6'
+git:
+  depth: 3
+branches:
+  only:
+  - master
+env:
+  global:
+  - BUILD_VERSION="0.0.2"
+  - secure: hfpJfnqQ1VwcbMAC0YiHEHWUvO5XNro0k7vE0SQ7zQaexsoE7hcFu6z7NxnJQQHxRZeQAv8Liiri/Hvu5YBZX0hL7eJDkS81H+ynKtXmj6Hx0YYMAR0V/zCOvV417toPetXxJEb73xYDnuKKXI/1aGTu0msk/XSG8IcZ89m5sD7CIc+isuA6HKTbWcZkRM5C5+chP1KFCsFhCTK/EKA8xzKaCunKuSuLGAvRpoS9n4WfOqoNco/70Cv9rDjFya9V7yia6kSXyXAE9AGeU1fTbV9qvkgIeKIVJRWBUXzdAQeRvYfoZDHPZXPr5IfzTk/JkdnQ84CR4f+j0/n9c+t1U0RpzaErdrlyw1oT9Ej02p+0Xzz7dLiCogMBbs33pnRpjw86sTKFeBimCaWQQ1hmPcEonO6fhc1ESwtWxJ1j68xpXpthmViPtN9H9JpJXABTiK41m2nCPAr2mw0wVkInuUpgjT/7K7JxxI1Rex67QVLQxqR9RhpfWLA2hAvG7W4qd/ZrQU+KlQ84H9oPNrrNPK4OgqBqvMxLv8WHw/CULf8ubwsHfanyt5B1PMGuyCDFeDnnBEEKMnqFMHpeOaRVrINsEWhzf0obDPdue6JVRO9haKDwKmucvLY/7ZTYgVn9yxgJl8HNESNkivnCjnxfeU85M39PHVWjaIbbUj2B1h8=
+before_install:
+- brew install python3
+- sudo python3 -m pip install -U pip
+- python3 -m pip install pyinstaller pyqt5-sip pyqt5
+- npm install -g appdmg
+install:
+- echo "Install Done!"
+script:
+- cd packaging/pyinstaller
+- rm -rf build
+- rm -rf dist
+- python3 -m PyInstaller --clean contextually.osx.spec
+- appdmg dmg.json Contextually-${BUILD_VERSION}-macOS.dmg
+- mv Contextually-${BUILD_VERSION}-macOS.dmg "${TRAVIS_BUILD_DIR}"
+- echo "Done!"
+notifications:
+  email: false
+before_deploy:
+  - git config --local user.name "jkhan-007"
+  - git config --local user.email "imon.bot@gmail.com"
+  - git remote set-url origin https://jkhan-007:${GITHUB_TOKEN}@github.com/jkhan-007/contextually-app.git
+  - git push origin :refs/tags/${BUILD_VERSION}
+  - git tag -f -am v${BUILD_VERSION} ${BUILD_VERSION}
+deploy:
+  provider: releases
+  api-key:
+    secure: vU8fRPls5Bs7Vgt0YLWnJHF9eRUqW3qUZLBQKbQIesvuWcG9CxwWzhTb0KE3eXckZe3sbbR+Ox8ylTPiAOkl9IGm2z/6liHJdNiTyyznJtiveyP0RY0HlZt0TWmehOlX2ByEuG5ryaqdGyRVuuFlhPez2k0MYAwT4skseoF/PJnDx4OXIKqb7pZgRutwUM5ZJcS3Y12ulEfMP4Yc5/4lGT2dEO21V+5EhwyaFVatqo7OcxL08lRF6BZwt0Eb0VmqpZsrca+ajJVWrXuD4FF1MekWVVJGfgIDYFArMzWnCBNiGIM7hLUgAmiQXx4V2271VOIwoiDfVQggfokXBoECvWlK/zerkQ+brUEewWEIXT56DVmuMXKlB3LOSdZPHc0O9R0gUEkjznCM0oirublPatqYPndP6CIP1vch+Radyqi+xj31QU2KkLM/NRpXXPLICrtfl0+p5NughjHLHOo6LTI1bd/xm3UrT8SbrkZLuvgeLc74V64nId0adNggltlLRXqNbJPvLVOPcfHakZclCFTqYoPjFDaWrBY91vtiUaf1Wb9NAA+WpmTQNw3eNmKZCDWIfxaKPxp5ai7B3fv+hwlcuaGVHyuzqdgeOoZG63juzmICyfninYxNfYd2/SUCmSjHhVBeLWPVKp0U5TvQ/CuRYAf8STCs7qvuk+W2fc0=
+  file: "${TRAVIS_BUILD_DIR}/Contextually-${BUILD_VERSION}-macOS.dmg"
+  overwrite: true
+  skip_cleanup: true
+  on:
+    repo: jkhan-007/contextually
