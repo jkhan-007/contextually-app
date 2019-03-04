@@ -1,3 +1,4 @@
+import logging
 import subprocess
 
 from PyQt5.QtCore import *
@@ -21,16 +22,16 @@ class AppsPresenter:
     def refresh_apps(self):
         self.model.clear()
         for app in app_data.get_apps():
-            print(f"Adding {app.get('path')}")
+            logging.info(f"Adding {app.get('path')}")
             i = QStandardItem(app.get('path'))
             self.model.appendRow(i)
 
     def refresh(self, ticket):
-        print(f"Refreshing Apps for ticket {ticket.ticket_number} - Workspace {ticket.workspace_dir}")
+        logging.info(f"Refreshing Apps for ticket {ticket.ticket_number} - Workspace {ticket.workspace_dir}")
         self.ticket = ticket
         self.model.clear()
         for app in app_data.get_apps():
-            print(f"Adding {app.get('path')}")
+            logging.info(f"Adding {app.get('path')}")
             i = QStandardItem(app.get('path'))
             self.model.appendRow(i)
 

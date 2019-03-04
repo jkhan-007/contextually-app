@@ -1,3 +1,4 @@
+import logging
 import pkg_resources
 from PyQt5 import QtWidgets
 from PyQt5.QtGui import QIcon, QStandardItemModel
@@ -31,7 +32,7 @@ class TicketsListPresenter:
     def on_double_clicked(self):
         item = self.tickets_list_widget.itemWidget(self.tickets_list_widget.selectedItems()[0])
         ticket_number, _, ticket_url = item.get_data()
-        print(f"Clicked {ticket_number} with url {ticket_url}")
+        logging.info(f"Clicked {ticket_number} with url {ticket_url}")
         self.refresh_ticket(ticket_number, ticket_url)
 
     def refresh_ticket(self, ticket_number, ticket_url):
@@ -50,4 +51,5 @@ class TicketsListPresenter:
         app_data.upsert_ticket(ticket.ticket_number, ticket)
 
     def on_failure(self, result):
-        pass
+        logging.error("Unable to get ticket details")
+        logging.error(result)

@@ -1,3 +1,4 @@
+import logging
 from PyQt5 import QtCore, QtWidgets
 
 from contextual.core.jira_interactor import JiraInteractor
@@ -23,7 +24,7 @@ class TicketStatePresenter:
             self.parent_view.verticalLayout_2.removeWidget(existing_button)
 
         _translate = QtCore.QCoreApplication.translate
-        print("Updating Ticket State presenter")
+        logging.info("Updating Ticket State presenter")
         for transition in self.selected_ticket.ticket_transitions:
             transition_id = transition.get("id")
             transition_name = transition.get("name")
@@ -34,7 +35,7 @@ class TicketStatePresenter:
             self.button_group.addButton(btn)
 
     def handle_state_transition(self, button):
-        print(f"*** Handling state transition {button.objectName()} to {button.text()}")
+        logging.info(f"Handling state transition {button.objectName()} to {button.text()}")
         transition = next(
             (tr for tr in self.selected_ticket.ticket_transitions if tr.get("id") == button.objectName()),
             None
@@ -55,4 +56,5 @@ class TicketStatePresenter:
         self.parent_view.tickets_list_presenter.refresh_ticket(ticket.ticket_number, ticket.ticket_url)
 
     def on_failure(self, result):
-        pass
+        logging.error("Unable to change state")
+        logging.error(result)

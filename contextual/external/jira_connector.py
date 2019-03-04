@@ -1,3 +1,5 @@
+import logging
+
 from enum import Enum
 from operator import itemgetter
 
@@ -34,7 +36,7 @@ class JiraConnector(QRunnable):
         ticket = self.args.get('ticket')
         ticket_id = ticket.ticket_id
         transition_id = self.args.get('transition').get('id')
-        print(f"Updating ticket {ticket_id} transition to {transition_id}")
+        logging.info(f"Updating ticket {ticket_id} transition to {transition_id}")
         try:
             JiraApi.auth(*config_settings.load_jira_configuration()).update_transition(ticket_id, transition_id)
             result = {
@@ -49,7 +51,7 @@ class JiraConnector(QRunnable):
             self.signals.error.emit(error)
 
     def fetch_all_tickets(self):
-        print("Fetching all tickets")
+        logging.info("Fetching all tickets")
         try:
             all_jira_tickets = JiraApi.auth(*config_settings.load_jira_configuration()).get_tickets()
             tickets = [Ticket.from_issue_json(t) for t in all_jira_tickets.get('issues', [])]
@@ -66,7 +68,7 @@ class JiraConnector(QRunnable):
 
     def ticket_details(self):
         ticket_url = self.args['ticket_url']
-        print(f"Fetching ticket details - {ticket_url}")
+        logging.info(f"Fetching ticket details - {ticket_url}")
         try:
             jira_ticket_json = JiraApi.auth(*config_settings.load_jira_configuration()).get_ticket(ticket_url)
             ticket = Ticket.from_issue_json(jira_ticket_json)
@@ -82,7 +84,7 @@ class JiraConnector(QRunnable):
             self.signals.error.emit(error)
 
     def check_connection(self):
-        print("Checking connection")
+        logging.info("Checking connection")
         try:
             JiraApi.auth(*itemgetter('server', 'username', 'password')(self.args)).connect()
             self.signals.result.emit(self.args)
@@ -95,5 +97,5 @@ class JiraConnector(QRunnable):
 
     @pyqtSlot()
     def run(self):
-        print("Running JIRA Connector ")
+        logging.info("Running JIRA Connector ")
         self.api_type_func.get(self.api_type)()

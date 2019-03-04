@@ -1,3 +1,4 @@
+import logging
 import os
 
 from PyQt5.QtWidgets import QFileDialog
@@ -25,7 +26,7 @@ class GitStatsPresenter:
             app_data.add_workspace(self.selected_ticket.ticket_number, directory)
 
     def refresh(self, ticket: Ticket):
-        print(f"Refreshing GitStats for Ticket: {ticket.ticket_number} - Dir: {ticket.workspace_dir}")
+        logging.info(f"Refreshing GitStats for Ticket: {ticket.ticket_number} - Dir: {ticket.workspace_dir}")
         self.selected_ticket = ticket
         self.update_view(ticket.workspace_dir)
 

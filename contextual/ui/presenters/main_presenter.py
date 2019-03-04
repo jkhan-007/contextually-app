@@ -1,3 +1,5 @@
+import logging
+
 from contextual.core.jira_interactor import JiraInteractor
 from contextual.model.app_data import app_data
 from contextual.model.config_settings import config_settings
@@ -35,11 +37,12 @@ class MainPresenter:
         self.jira_interactor.fetch_all_tickets(**args)
 
     def on_all_tickets_loaded(self, result):
-        print("All tickets loaded...Showing in List view")
+        logging.info("All tickets loaded...Showing in List view")
         self.view.hide_progress_dialog()
         tickets = result.get('tickets')
         app_data.add_visible_tickets(tickets)
 
     def on_all_tickets_failed(self, result):
-        print("Error fetching All tickets")
+        logging.error("Error fetching All tickets")
+        logging.error(result)
         self.view.hide_progress_dialog()

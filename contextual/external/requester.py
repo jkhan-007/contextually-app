@@ -1,5 +1,6 @@
-import os
 import json
+import logging
+import os
 import requests
 import requests_cache
 
@@ -10,7 +11,7 @@ class Requester:
         self.timeout_secs = timeout_secs
         self.is_offline = os.getenv("OFFLINE", "false").lower() == "true"
         if self.is_offline:
-            print("Offline mode: Setting up offline store")
+            logging.info("Offline mode: Setting up offline store")
             requests_cache.install_cache(
                 '../offline_data/data_cache',
                 backend='sqlite',
@@ -36,7 +37,7 @@ class Requester:
                 ),
                 data=json.dumps(post_data)
             )
-            print('Response HTTP Status Code: {status_code}'.format(
+            logging.info('Response HTTP Status Code: {status_code}'.format(
                 status_code=response.status_code))
             self.raise_for_status(response)
             if response.content:
@@ -44,10 +45,10 @@ class Requester:
             else:
                 return response.content
         except requests.exceptions.HTTPError as e:
-            print(f"Error Response {e}")
+            logging.info(f"Error Response {e}")
             raise ConnectionError(e)
         except requests.exceptions.RequestException as e:
-            print('HTTP Request failed')
+            logging.info('HTTP Request failed')
             raise ConnectionError(e)
 
     def do_get(self, resource, kwargs):
@@ -61,11 +62,11 @@ class Requester:
             response_json = response.json()
             return response_json
         except requests.exceptions.HTTPError as e:
-            print(f"Error Response {e}")
+            logging.info(f"Error Response {e}")
             raise ConnectionError(e)
         except requests.exceptions.RequestException as e:
-            print('HTTP Request failed')
-            print(e)
+            logging.info('HTTP Request failed')
+            logging.info(e)
 
     def do_post(self, resource, kwargs):
         try:
@@ -78,11 +79,11 @@ class Requester:
             response_json = response.json()
             return response_json
         except requests.exceptions.HTTPError as e:
-            print(f"Error Response {e}")
+            logging.info(f"Error Response {e}")
             raise ConnectionError(e)
         except requests.exceptions.RequestException as e:
-            print('HTTP Request failed')
-            print(e)
+            logging.info('HTTP Request failed')
+            logging.info(e)
 
     def request_get(self, resource, user, password, params=None):
         if params is None:
@@ -98,37 +99,13 @@ class Requester:
                     password
                 )
             )
-            print('Response HTTP Status Code: {status_code}'.format(
+            logging.info('Response HTTP Status Code: {status_code}'.format(
                 status_code=response.status_code))
             self.raise_for_status(response)
             return response.json()
         except requests.exceptions.HTTPError as e:
-            print(f"Error Response {e}")
+            logging.info(f"Error Response {e}")
             raise ConnectionError(e)
         except requests.exceptions.RequestException as e:
-            print('HTTP Request failed')
+            logging.info('HTTP Request failed')
             raise ConnectionError(e)
-
-
-if __name__ == '__main__':
-    requester = Requester()
-    kwargs = {
-        'auth': ('user', 'pass'),
-        'params': {
-            'a': 'b'
-        }
-    }
-    response = requester.do_get("http://127.0.0.1:8000/get", kwargs)
-    print(response)
-    post_kwargs = {
-        'auth': ('user', 'pass'),
-        'params': {
-            'a': 'b'
-        },
-        'headers': {
-            "Content-Type": "application/json"
-        },
-        'data': json.dumps({'payment': 10})
-    }
-    response = requester.do_post("http://127.0.0.1:8000/post", post_kwargs)
-    print(response)

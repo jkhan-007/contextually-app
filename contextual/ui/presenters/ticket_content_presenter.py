@@ -1,3 +1,5 @@
+import logging
+
 from contextual.model.app_data import app_data, Ticket
 from contextual.model.config_settings import config_settings
 
@@ -13,7 +15,7 @@ class TicketContentPresenter:
         app_data.signals.ticket_changed.connect(self.refresh)
 
     def refresh(self, ticket):
-        print("Refreshing data for ticket content")
+        logging.info("Refreshing data for ticket content")
         jira_server, _, _ = config_settings.load_jira_configuration()
         self.selected_ticket = ticket
         ticket_browse_link = f"{jira_server}/browse/{self.selected_ticket.ticket_number}"

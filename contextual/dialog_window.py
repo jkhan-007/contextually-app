@@ -1,5 +1,5 @@
+import logging
 import sys
-
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QStandardPaths, QDir
 
@@ -35,11 +35,6 @@ class TicketListWindow(QtWidgets.QMainWindow):
         self.setCentralWidget(self.ticket_list)
 
     def on_double_clicked(self):
-        print(f"Clicked widget")
-        item = self.ticket_list.itemWidget(self.ticket_list.selectedItems()[0])
-        print(item.get_data())
-        print(QStandardPaths.writableLocation(QStandardPaths.DocumentsLocation))
-        print(QDir.tempPath())
         self.updater.check()
 
 

@@ -1,17 +1,17 @@
-import sys
-
 import PyQt5
+import logging
 import pkg_resources
+import sys
+import traceback
 from PyQt5.QtCore import QUrl
 from PyQt5.QtGui import QDesktopServices
 from PyQt5.QtWidgets import QApplication, QDesktopWidget, QFileDialog, QMainWindow, QToolBar
 
 import contextual
-from contextual.ui.about_dialog import AboutDialog
+from contextual.external.logging_wrapper import setup_logging
 from contextual.ui.configuration_dialog import ConfigurationDialog
 from contextual.ui.generated.base_window import Ui_MainWindow
-from contextual.ui.jira_ticket_dialog import JiraTicketDialog
-from contextual.ui.menus import file_menu, help_menu
+from contextual.ui.menus import file_menu
 from contextual.ui.presenters.apps_presenter import AppsPresenter
 from contextual.ui.presenters.git_stats_presenter import GitStatsPresenter
 from contextual.ui.presenters.main_presenter import MainPresenter
@@ -38,19 +38,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.updater = Updater(self)
         self.menu_bar = self.menuBar()
         self.tool_bar = QToolBar()
-        self.about_dialog = AboutDialog()
         self.status_bar = self.statusBar()
         self.status_bar.showMessage('Ready', 5000)
 
         # Custom Dialogs
         self.configuration_dialog = ConfigurationDialog(self)
-        self.jira_ticket_dialog = JiraTicketDialog(self)
         self.progress_dialog = ProgressDialog(self)
 
         # Initialise Components
         file_menu(self)
-        help_menu(self)
         tool_bar_items(self)
+
+        # Initialise Sub-Systems
+        setup_logging()
+        sys.excepthook = MainWindow.log_uncaught_exceptions
 
         # Initialise Presenters
         self.presenter = MainPresenter(self)
@@ -60,12 +61,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.apps_presenter = AppsPresenter(self)
         self.ticket_state_presenter = TicketStatePresenter(self)
 
+    @staticmethod
+    def log_uncaught_exceptions(cls, exc, tb) -> None:
+        logging.critical(''.join(traceback.format_tb(tb)))
+        logging.critical('{0}: {1}'.format(cls, exc))
+
     def check_updates(self):
         self.updater.check()
 
     def update_available(self, latest, current):
         update_available = True if latest > current else False
-        print(f"Update Available ({latest} > {current}) ? ({update_available}) Enable Toolbar Icon")
+        logging.info(f"Update Available ({latest} > {current}) ? ({update_available}) Enable Toolbar Icon")
         if update_available:
             toolbar_actions = self.tool_bar.actions()
             updates_action = next(act for act in toolbar_actions if act.text() == 'Update Available')
@@ -92,9 +98,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def show_jira_configuration_dialog(self):
         self.configuration_dialog.show_dialog()
-
-    def show_jira_ticket_dialog(self):
-        self.jira_ticket_dialog.show_dialog()
 
     def open_directory(self, dialog_title, dialog_location, flags):
         return QFileDialog.getExistingDirectory(
@@ -124,9 +127,9 @@ def main():
     application.setApplicationName(contextual.__appname__)
     application.setDesktopFileName(contextual.__desktopid__)
 
+    window = MainWindow()
     configure_theme(application)
 
-    window = MainWindow()
     desktop = QDesktopWidget().availableGeometry()
     width = (desktop.width() - window.width()) / 2
     height = (desktop.height() - window.height()) / 2

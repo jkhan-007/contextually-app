@@ -12,14 +12,3 @@ def file_menu(self):
 
     self.file_sub_menu.addAction(self.exit_action)
 
-
-def help_menu(self):
-    """Create a help submenu with an About item tha opens an about dialog."""
-    self.help_sub_menu = self.menu_bar.addMenu('Help')
-
-    self.about_action = QAction('About', self)
-    self.about_action.setStatusTip('About the application.')
-    self.about_action.setShortcut('CTRL+H')
-    self.about_action.triggered.connect(lambda: self.about_dialog.exec_())
-
-    self.help_sub_menu.addAction(self.about_action)

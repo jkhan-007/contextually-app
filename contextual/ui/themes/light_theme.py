@@ -1,3 +1,5 @@
+import logging
+
 from PyQt5.QtCore import Qt, QFile, QFileInfo, QTextStream
 from PyQt5.QtGui import QColor, QPalette
 from PyQt5.QtWidgets import QProxyStyle, qApp
@@ -34,4 +36,4 @@ class LightTheme(QProxyStyle):
             content = QTextStream(qss_file).readAll()
             qApp.setStyleSheet(content)
         else:
-            print("Unable to read light.qss file")
+            logging.error(f"Unable to read light.qss file from {filename}")

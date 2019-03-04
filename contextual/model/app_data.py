@@ -1,3 +1,5 @@
+import logging
+
 from PyQt5.QtCore import QObject, pyqtSignal
 from tinydb import TinyDB, Query
 
@@ -78,7 +80,7 @@ class AppData:
         self.signals = AppDataSignals()
 
     def add_visible_tickets(self, tickets):
-        print(f"Setting visible tickets")
+        logging.info(f"Setting visible tickets")
         VisibleTickets = Query()
         self.db.upsert({'type': 'index', 'keys': [(t.ticket_number, t.ticket_status, t.ticket_url, t.ticket_title) for t in tickets]},
                        VisibleTickets.type == 'index')
@@ -93,7 +95,7 @@ class AppData:
         return []
 
     def add_app(self, app_path):
-        print(f"Adding App: App Path: {app_path}")
+        logging.info(f"Adding App: App Path: {app_path}")
         App = Query()
         self.db.upsert({'type': 'app', 'path': app_path}, App.path == app_path)
         self.signals.app_changed.emit(app_path)
@@ -107,7 +109,7 @@ class AppData:
         return [Ticket.from_json(t) for t in self.db.search(TicketQuery.type == 'ticket')]
 
     def get_ticket(self, ticket_number):
-        print(f"Get Ticket: {ticket_number}")
+        logging.info(f"Get Ticket: {ticket_number}")
         TicketQuery = Query()
         db_ticket = self.db.get(TicketQuery.ticket_number == ticket_number)
         if not db_ticket:
@@ -116,7 +118,7 @@ class AppData:
         return Ticket.from_json(db_ticket)
 
     def upsert_ticket(self, ticket_number, ticket):
-        print(f"Upsert Ticket: Ticket: {ticket_number}")
+        logging.info(f"Upsert Ticket: Ticket: {ticket_number}")
         TicketQuery = Query()
         self.db.upsert(ticket.to_json(), TicketQuery.ticket_number == ticket_number)
         new_ticket = Ticket.from_json(self.db.get(TicketQuery.ticket_number == ticket_number))
@@ -124,7 +126,7 @@ class AppData:
         return new_ticket
 
     def add_workspace(self, ticket_number, workspace_dir):
-        print(f"Adding workspace: Ticket: {ticket_number}, Workspace Dir: {workspace_dir}")
+        logging.info(f"Adding workspace: Ticket: {ticket_number}, Workspace Dir: {workspace_dir}")
         TicketQuery = Query()
         ticket = Ticket.from_json(self.db.get(TicketQuery.ticket_number == ticket_number))
         ticket.workspace_dir = workspace_dir
