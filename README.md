@@ -25,3 +25,9 @@ python3 -m PyInstaller --clean packaging/pyinstaller/contextually.osx.spec
 #### Icons from
 
 https://icons8.com/icon/pack/free-icons/ios-glyphs
+
+#### Generate Resources
+
+```
+$ pyrcc5 -compress 9 -o contextual/resources.py contextual/resources.qrc
+```
