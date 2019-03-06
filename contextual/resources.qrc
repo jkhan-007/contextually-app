@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/configure-48.png</file>
+        <file>images/download-48.png</file>
+        <file>images/notifier-48.png</file>
+        <file>images/refresh-48.png</file>
+        <file>images/story-48.png</file>
+        <file>images/contextually.png</file>
+        <file>styles/light.qss</file>
+    </qresource>
+</RCC>

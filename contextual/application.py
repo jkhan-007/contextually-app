@@ -1,6 +1,5 @@
 import PyQt5
 import logging
-import pkg_resources
 import sys
 import traceback
 from PyQt5.QtCore import QUrl
@@ -30,8 +29,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.resize(1024, 768)
         self.setWindowTitle('Contextual - Focused workflow for developers')
-        window_icon = pkg_resources.resource_filename('contextual.images', 'contextually.png')
-        self.setWindowIcon(PyQt5.QtGui.QIcon(window_icon))
+        self.setWindowIcon(PyQt5.QtGui.QIcon(":/images/contextually.png"))
 
         # Add Components on Main Window
         self.updater = Updater(self)

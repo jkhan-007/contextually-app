@@ -1,5 +1,3 @@
-import pkg_resources
-
 from PyQt5 import QtWidgets, QtGui
 
 
@@ -32,8 +30,7 @@ class TicketWidget(QtWidgets.QWidget):
             }
         ''')
         self.lbl_ticket_title = QtWidgets.QLabel()
-        self.story_icon = pkg_resources.resource_filename('contextual.images', 'notifier-48.png')
-        self.lbl_icon.setPixmap(QtGui.QPixmap(self.story_icon))
+        self.lbl_icon.setPixmap(QtGui.QPixmap(":/images/notifier-48.png"))
 
         self.top_row_layout.addWidget(self.lbl_icon)
         self.top_row_layout.addWidget(self.lbl_ticket_number)
