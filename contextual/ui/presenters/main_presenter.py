@@ -13,6 +13,10 @@ class MainPresenter:
         app_settings.init()
         app_settings.init_logger()
         app_settings.init_app_data()
+        if app_settings.geometry():
+            self.view.restoreGeometry(app_settings.geometry())
+        if app_settings.window_state():
+            self.view.restoreState(app_settings.window_state())
 
     def after_load(self):
         if not self.initial_load:

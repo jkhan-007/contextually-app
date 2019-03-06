@@ -78,5 +78,11 @@ class CoreSettings:
         return self.settings.value("server", None) and self.settings.value("username", None) and self.settings.value(
             "password", None)
 
+    def geometry(self):
+        return self.settings.value("geometry", None)
+
+    def window_state(self):
+        return self.settings.value("windowState", None)
+
 
 app_settings = CoreSettings()
