@@ -1,12 +1,11 @@
 import logging
 import os
-
 from PyQt5.QtWidgets import QFileDialog
 
 from contextual.core import truncate
+from contextual.core.core_settings import app_settings
 from contextual.core.git_interactor import git_info
 from contextual.model.app_data import Ticket
-from contextual.model.app_data import app_data
 
 
 class GitStatsPresenter:
@@ -14,7 +13,7 @@ class GitStatsPresenter:
         self.parent_view = parent_view
         self.parent_view.btn_workspace.clicked.connect(self.select_directory)
         self.selected_ticket = None
-        app_data.signals.ticket_changed.connect(self.refresh)
+        app_settings.app_data.signals.ticket_changed.connect(self.refresh)
 
     def select_directory(self):
         directory = self.parent_view.open_directory(
@@ -23,7 +22,7 @@ class GitStatsPresenter:
             QFileDialog.ShowDirsOnly
         )
         if directory:
-            app_data.add_workspace(self.selected_ticket.ticket_number, directory)
+            app_settings.app_data.add_workspace(self.selected_ticket.ticket_number, directory)
 
     def refresh(self, ticket: Ticket):
         logging.info(f"Refreshing GitStats for Ticket: {ticket.ticket_number} - Dir: {ticket.workspace_dir}")

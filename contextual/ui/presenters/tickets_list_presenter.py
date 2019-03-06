@@ -3,8 +3,8 @@ import pkg_resources
 from PyQt5 import QtWidgets
 from PyQt5.QtGui import QIcon, QStandardItemModel
 
+from contextual.core.core_settings import app_settings
 from contextual.core.jira_interactor import JiraInteractor
-from contextual.model.app_data import app_data
 from contextual.ui.widgets.ticket_widget import TicketWidget
 
 
@@ -15,12 +15,12 @@ class TicketsListPresenter:
         self.model = QStandardItemModel()
         self.tickets_list_widget.clicked.connect(self.on_double_clicked)
         self.jira_interactor = JiraInteractor()
-        app_data.signals.index_changed.connect(self.refresh)
+        app_settings.app_data.signals.index_changed.connect(self.refresh)
         self.story_icon = QIcon(pkg_resources.resource_filename('contextual.images', 'notifier-48.png'))
 
     def refresh(self):
         self.tickets_list_widget.clear()
-        for number, status, url, title in app_data.get_visible_tickets():
+        for number, status, url, title in app_settings.app_data.get_visible_tickets():
             ticket_widget = TicketWidget(self.parent_view)
             ticket_widget.set_data(number, status, title, url)
             ticket_widget_item = QtWidgets.QListWidgetItem(self.tickets_list_widget)
@@ -48,7 +48,7 @@ class TicketsListPresenter:
     def on_success(self, result):
         self.parent_view.hide_progress_dialog()
         ticket = result.get('ticket')
-        app_data.upsert_ticket(ticket.ticket_number, ticket)
+        app_settings.app_data.upsert_ticket(ticket.ticket_number, ticket)
 
     def on_failure(self, result):
         logging.error("Unable to get ticket details")

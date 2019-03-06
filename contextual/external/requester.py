@@ -6,7 +6,7 @@ import requests_cache
 
 
 class Requester:
-    def __init__(self, timeout_secs=20, raise_for_status=True):
+    def __init__(self, timeout_secs=5, raise_for_status=True):
         self._raise_for_status = raise_for_status
         self.timeout_secs = timeout_secs
         self.is_offline = os.getenv("OFFLINE", "false").lower() == "true"

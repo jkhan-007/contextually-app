@@ -1,4 +1,5 @@
 import logging
+from pathlib import Path
 
 from PyQt5.QtCore import Qt, QFile, QFileInfo, QTextStream
 from PyQt5.QtGui import QColor, QPalette
@@ -28,7 +29,8 @@ class LightTheme(QProxyStyle):
 
     @staticmethod
     def load_stylesheet():
-        filename = './styles/light.qss'  # @todo: Use Resources
+        # @todo: Use Resources
+        filename = Path(__file__).parent.joinpath("../..").joinpath('styles').joinpath('light.qss').as_posix()
 
         if QFileInfo(filename).exists():
             qss_file = QFile(filename)

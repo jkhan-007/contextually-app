@@ -7,5 +7,8 @@ class WorkerPool:
     def schedule(self, worker):
         self.thread_pool.start(worker)
 
+    def shutdown(self):
+        self.thread_pool.clear()
+
 
 pool = WorkerPool()

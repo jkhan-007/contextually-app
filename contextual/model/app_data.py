@@ -3,8 +3,6 @@ import logging
 from PyQt5.QtCore import QObject, pyqtSignal
 from tinydb import TinyDB, Query
 
-from contextual.external.data_file import app_dir
-
 
 class Ticket:
     def __init__(self, **kwargs):
@@ -82,7 +80,8 @@ class AppData:
     def add_visible_tickets(self, tickets):
         logging.info(f"Setting visible tickets")
         VisibleTickets = Query()
-        self.db.upsert({'type': 'index', 'keys': [(t.ticket_number, t.ticket_status, t.ticket_url, t.ticket_title) for t in tickets]},
+        self.db.upsert({'type': 'index',
+                        'keys': [(t.ticket_number, t.ticket_status, t.ticket_url, t.ticket_title) for t in tickets]},
                        VisibleTickets.type == 'index')
         self.signals.index_changed.emit()
 
@@ -134,12 +133,3 @@ class AppData:
         updated_ticket = self.get_ticket(ticket_number)
         self.signals.ticket_changed.emit(updated_ticket)
         return updated_ticket
-
-
-def create_or_open(file="app.json"):
-    data_location = app_dir.joinpath(file)
-    db = TinyDB(data_location)
-    return AppData(db=db)
-
-
-app_data: AppData = create_or_open()

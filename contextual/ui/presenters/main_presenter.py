@@ -1,8 +1,8 @@
 import logging
 
+from contextual.core.core_settings import app_settings
 from contextual.core.jira_interactor import JiraInteractor
-from contextual.model.app_data import app_data
-from contextual.model.config_settings import config_settings
+from contextual.core.worker_pool import pool
 
 
 class MainPresenter:
@@ -10,13 +10,16 @@ class MainPresenter:
         self.view = view
         self.jira_interactor = JiraInteractor()
         self.initial_load = True
+        app_settings.init()
+        app_settings.init_logger()
+        app_settings.init_app_data()
 
     def after_load(self):
         if not self.initial_load:
             return
 
         self.initial_load = False
-        if not config_settings.jira_configured():
+        if not app_settings.jira_configured():
             self.view.show_jira_configuration_dialog()
         else:
             self.refresh_all_tickets()
@@ -24,7 +27,7 @@ class MainPresenter:
         self.check_updates()
 
     def check_updates(self):
-        if config_settings.load_updates_configuration():
+        if app_settings.load_updates_configuration():
             self.view.updater.check()
 
     def refresh_all_tickets(self):
@@ -40,9 +43,20 @@ class MainPresenter:
         logging.info("All tickets loaded...Showing in List view")
         self.view.hide_progress_dialog()
         tickets = result.get('tickets')
-        app_data.add_visible_tickets(tickets)
+        app_settings.app_data.add_visible_tickets(tickets)
 
     def on_all_tickets_failed(self, result):
         logging.error("Error fetching All tickets")
         logging.error(result)
         self.view.hide_progress_dialog()
+
+    def save_settings(self):
+        logging.info("Saving settings for Main Window")
+        app_settings.save_window_state(
+            geometry=self.view.saveGeometry(),
+            window_state=self.view.saveState()
+        )
+
+    def shutdown(self):
+        pool.shutdown()
+        self.save_settings()

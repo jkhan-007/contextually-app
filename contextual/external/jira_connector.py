@@ -7,7 +7,7 @@ from PyQt5.QtCore import QRunnable, QObject, pyqtSignal, pyqtSlot
 
 from contextual.external.jira_apis import JiraApi
 from contextual.model.app_data import Ticket
-from contextual.model.config_settings import config_settings
+from contextual.core.core_settings import app_settings
 
 
 class ConfigCheckSignals(QObject):
@@ -38,7 +38,7 @@ class JiraConnector(QRunnable):
         transition_id = self.args.get('transition').get('id')
         logging.info(f"Updating ticket {ticket_id} transition to {transition_id}")
         try:
-            JiraApi.auth(*config_settings.load_jira_configuration()).update_transition(ticket_id, transition_id)
+            JiraApi.auth(*app_settings.load_jira_configuration()).update_transition(ticket_id, transition_id)
             result = {
                 'ticket': ticket
             }
@@ -53,7 +53,7 @@ class JiraConnector(QRunnable):
     def fetch_all_tickets(self):
         logging.info("Fetching all tickets")
         try:
-            all_jira_tickets = JiraApi.auth(*config_settings.load_jira_configuration()).get_tickets()
+            all_jira_tickets = JiraApi.auth(*app_settings.load_jira_configuration()).get_tickets()
             tickets = [Ticket.from_issue_json(t) for t in all_jira_tickets.get('issues', [])]
             result = {
                 'tickets': tickets
@@ -70,7 +70,7 @@ class JiraConnector(QRunnable):
         ticket_url = self.args['ticket_url']
         logging.info(f"Fetching ticket details - {ticket_url}")
         try:
-            jira_ticket_json = JiraApi.auth(*config_settings.load_jira_configuration()).get_ticket(ticket_url)
+            jira_ticket_json = JiraApi.auth(*app_settings.load_jira_configuration()).get_ticket(ticket_url)
             ticket = Ticket.from_issue_json(jira_ticket_json)
             t = {
                 'ticket': ticket

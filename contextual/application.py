@@ -4,11 +4,10 @@ import pkg_resources
 import sys
 import traceback
 from PyQt5.QtCore import QUrl
-from PyQt5.QtGui import QDesktopServices
-from PyQt5.QtWidgets import QApplication, QDesktopWidget, QFileDialog, QMainWindow, QToolBar
+from PyQt5.QtGui import QDesktopServices, QCloseEvent
+from PyQt5.QtWidgets import qApp, QApplication, QDesktopWidget, QFileDialog, QMainWindow, QToolBar
 
 import contextual
-from contextual.external.logging_wrapper import setup_logging
 from contextual.ui.configuration_dialog import ConfigurationDialog
 from contextual.ui.generated.base_window import Ui_MainWindow
 from contextual.ui.menus import file_menu
@@ -49,10 +48,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         file_menu(self)
         tool_bar_items(self)
 
-        # Initialise Sub-Systems
-        setup_logging()
-        sys.excepthook = MainWindow.log_uncaught_exceptions
-
         # Initialise Presenters
         self.presenter = MainPresenter(self)
         self.tickets_list_presenter = TicketsListPresenter(self.tickets_list_widget, self)
@@ -61,10 +56,28 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.apps_presenter = AppsPresenter(self)
         self.ticket_state_presenter = TicketStatePresenter(self)
 
+        # Initialise Sub-Systems
+        sys.excepthook = MainWindow.log_uncaught_exceptions
+
     @staticmethod
     def log_uncaught_exceptions(cls, exc, tb) -> None:
         logging.critical(''.join(traceback.format_tb(tb)))
         logging.critical('{0}: {1}'.format(cls, exc))
+
+    # Main Window events
+    def resizeEvent(self, event):
+        self.presenter.after_load()
+
+    def closeEvent(self, event: QCloseEvent):
+        logging.info("Received close event")
+        event.accept()
+        self.presenter.shutdown()
+        try:
+            qApp.exit(0)
+        except:
+            pass
+
+    # End Main Window events
 
     def check_updates(self):
         self.updater.check()
@@ -83,9 +96,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def refresh_all_tickets(self):
         self.presenter.refresh_all_tickets()
-
-    def resizeEvent(self, event):
-        self.presenter.after_load()
 
     def show_progress_dialog(self, message):
         self.progress_dialog.show_dialog(message)

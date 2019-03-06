@@ -1,8 +1,9 @@
 import logging
 from PyQt5 import QtCore, QtWidgets
 
+from contextual.core.core_settings import app_settings
 from contextual.core.jira_interactor import JiraInteractor
-from contextual.model.app_data import app_data, Ticket
+from contextual.model.app_data import Ticket
 
 
 class TicketStatePresenter:
@@ -13,7 +14,7 @@ class TicketStatePresenter:
         self.selected_ticket = None
         self.button_group = QtWidgets.QButtonGroup()
         self.button_group.buttonClicked[QtWidgets.QAbstractButton].connect(self.handle_state_transition)
-        app_data.signals.ticket_changed.connect(self.refresh)
+        app_settings.app_data.signals.ticket_changed.connect(self.refresh)
         self.jira_interactor = JiraInteractor()
 
     def refresh(self, ticket):

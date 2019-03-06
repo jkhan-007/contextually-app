@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import *
 
 def tool_bar_items(self):
     """Create a tool bar for the main window."""
+    self.tool_bar.setObjectName("maintoolbar")
     self.addToolBar(Qt.TopToolBarArea, self.tool_bar)
     self.tool_bar.setMovable(False)
 

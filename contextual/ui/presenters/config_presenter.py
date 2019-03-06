@@ -1,6 +1,6 @@
 import logging
 from contextual.core.jira_interactor import JiraInteractor
-from contextual.model.config_settings import config_settings
+from contextual.core.core_settings import app_settings
 
 
 class ConfigPresenter:
@@ -44,7 +44,7 @@ class ConfigPresenter:
         jira_username = self.view.txt_jira_user.text()
         jira_password = self.view.txt_jira_password.text()
         updates_check = self.view.chk_updates_startup.isChecked()
-        config_settings.save_configuration(
+        app_settings.save_configuration(
             jira_server,
             jira_username,
             jira_password,
@@ -55,10 +55,10 @@ class ConfigPresenter:
         self.view.accept()
 
     def load_configuration_dialog(self):
-        jira_server, jira_user, jira_password = config_settings.load_jira_configuration()
+        jira_server, jira_user, jira_password = app_settings.load_jira_configuration()
         self.view.txt_jira_server.setText(jira_server)
         self.view.txt_jira_user.setText(jira_user)
         self.view.txt_jira_password.setText(jira_password)
-        check_updates = config_settings.load_updates_configuration()
+        check_updates = app_settings.load_updates_configuration()
         self.view.chk_updates_startup.setChecked(check_updates)
         self.view.show()

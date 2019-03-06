@@ -1,10 +1,9 @@
 import logging
 import subprocess
-
 from PyQt5.QtCore import *
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 
-from contextual.model.app_data import app_data
+from contextual.core.core_settings import app_settings
 
 
 class AppsPresenter:
@@ -16,12 +15,12 @@ class AppsPresenter:
         self.ticket = None
         self.parent_view.btn_add_application.clicked.connect(self.add_application)
         self.list_apps.doubleClicked.connect(self.on_clicked)
-        app_data.signals.ticket_changed.connect(self.refresh)
-        app_data.signals.app_changed.connect(self.refresh_apps)
+        app_settings.app_data.signals.ticket_changed.connect(self.refresh)
+        app_settings.app_data.signals.app_changed.connect(self.refresh_apps)
 
     def refresh_apps(self):
         self.model.clear()
-        for app in app_data.get_apps():
+        for app in app_settings.app_data.get_apps():
             logging.info(f"Adding {app.get('path')}")
             i = QStandardItem(app.get('path'))
             self.model.appendRow(i)
@@ -30,7 +29,7 @@ class AppsPresenter:
         logging.info(f"Refreshing Apps for ticket {ticket.ticket_number} - Workspace {ticket.workspace_dir}")
         self.ticket = ticket
         self.model.clear()
-        for app in app_data.get_apps():
+        for app in app_settings.app_data.get_apps():
             logging.info(f"Adding {app.get('path')}")
             i = QStandardItem(app.get('path'))
             self.model.appendRow(i)
@@ -40,7 +39,7 @@ class AppsPresenter:
             "Select Application",
             "/Applications"
         )
-        app_data.add_app(application_name)
+        app_settings.app_data.add_app(application_name)
 
     def on_clicked(self, index: QModelIndex):
         app_path = index.data()
