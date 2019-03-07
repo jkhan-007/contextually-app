@@ -43,4 +43,4 @@ deploy:
   overwrite: true
   skip_cleanup: true
   on:
-    repo: jkhan-007/contextually
+    repo: jkhan-007/contextually-app
