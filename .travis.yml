@@ -4,14 +4,13 @@ osx_image: xcode9.2
 sudo: required
 python: '3.6'
 git:
-  depth: 3
+  depth: 1
 branches:
   only:
   - master
 env:
   global:
   - BUILD_VERSION="0.0.2"
-  - secure: BTC6uluzTaoGVKLya6gSsorhQbQ6TCmoWu/F9G96zO81s9VLx4B+YY9ION570ssrDJ5fX0N1QuG1BH8cH/e5XcGTBkOZRRlRJHJq8PfbVZtKMsaD0WrsfI4D71IdrGspaKyaOzmWaVUNkl8MxWKsuofs+nh+yZ2S/r+bKroElH9W+hGcJRbc9h6Y6CqBudMhG7kH1JEaDVin0BdKVDyTHHwWkHiy8BMPX+tao53PWt2seTg8A8GuzfR6gAnXOd6+FerHGoTY+uIUxtJ12TmSLJs8SVQQWiBUUoKECTYw1m4ihCyOB85SLsKCUPwsfPkMb6itr2Z1GRcPp1ONNvs6gWsr69sjIxxhF4JQDjpYvZI818k78IvnBYgromdhbffAaJcaU5WT9+LqxuvWyZaOZRDto/J2Uqdfj2tGc/cwLzrsVF/Q4xsfPev6kVeTIXsyP7cIE2V3JRG9O1aMQLgYDffgSW05/v8VoyJ4pBrCYnmQfJwkZsJHtQGOGTbE0bwqaCg0fm3+5aKa3jBGN2IVqDq7BO0w4RNC3x3GmKDZgrXAS+wvNUSOnYt0zhfQBUqYqOX919O44STqSOLpq7vkA8tRyaZnzGVcn+pdiAy0TVsOb7gUh/zFW+puf9Td/V2SixSCSPMSSLtsYT8M7YOrOws+SlwQKhYWtKELd9IhOd0=
 before_install:
 - brew install python3
 - sudo python3 -m pip install -U pip
@@ -32,15 +31,14 @@ notifications:
 before_deploy:
 - git config --local user.name "jkhan-007"
 - git config --local user.email "imon.bot@gmail.com"
-#- git remote set-url origin https://jkhan-007:${GITHUB_TOKEN}@github.com/jkhan-007/contextually-app.git
-#- git push origin :refs/tags/${BUILD_VERSION}
-#- git tag -f -am v${BUILD_VERSION} ${BUILD_VERSION}
+- git remote set-url origin https://jkhan-007:${GITHUB_TOKEN}@github.com/jkhan-007/contextually-app.git
+- git push origin :refs/tags/${BUILD_VERSION}
+- git tag -f -am v${BUILD_VERSION} ${BUILD_VERSION}
 deploy:
   provider: releases
+  api-key: "${GITHUB_TOKEN"
   file: "${TRAVIS_BUILD_DIR}/Contextually-${BUILD_VERSION}-macOS.dmg"
   overwrite: true
   skip_cleanup: true
   on:
     repo: jkhan-007/contextually-app
-  api-key:
-    secure: Jk43bX8WQ0QKX6g9sPMQj5dJeqt84mNqFNJ5tH7x965fCkVABv584mHbc9i/q0Uk6c32Eh8PvL7TS5bxQK0+78hnWimgSzAnoHAxf5uFKQtSL5PGBGFYyg9wkEaoR8B3Yd7twLO6jevouCphykYGP6r3fUuy2nBEnAtmDxHe02YCFreh9jwWEYfZ+MkkXGi2sQTeTbZY0WjEZm1BwTdVMuT4dzVyePGUVcJIwZqbVdW0cIq+F8fIgEXLAA4IbIpJfkx7OG8wHQwT/lpPuEQs1eaxW6I1v919cRQMu4tN9akv7YiVmTjUQ8sBxwHOapVUO3eWOmpehxBicWv91dwOqgm5LrEY4xUSLXE9Ol1dss2UjFOj7n4kq79WLzJMxIwk97IqLrv/igGOz2g5I+oCjJdlFaw7NAzP2e6zfz/hk86vhZEnoMyx8cisfh0bYCSgTGEXmvMVmFRrE9ccxfJCieFvkc32z4G8Xn12I2PyQCY4zFW9C4xtD9+tUkMg8S1hiH31Z1Z30FWnF0H2lVwaelIRgDuR3FymTkNEfiVQ3Ql6GNBw887ynYcCqn6+ZW6fkk2S1McmKJHpDs21DSrKmRhkKAdxMjMu6WCwzpgOQ6qwyRG0OVoe2BPuWPA3i9lDAjjyX1xSgRlrrltjfjBxEb8jCzO6jY7FlLwxwkz6yjo=
