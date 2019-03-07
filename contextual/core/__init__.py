@@ -1,9 +1,12 @@
 from pathlib import Path
 
 
-def truncate(directory):
+def truncate(directory, with_parent=True):
     p = Path(directory)
-    return f"../{p.parent.name}/{p.name}"
+    if with_parent:
+        return f"../{p.parent.name}/{p.name}"
+    else:
+        return p.name
 
 
 def str_to_bool(bool_str):

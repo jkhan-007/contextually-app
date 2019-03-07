@@ -3,6 +3,7 @@ import subprocess
 from PyQt5.QtCore import *
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 
+from contextual.core import truncate
 from contextual.core.core_settings import app_settings
 
 
@@ -22,7 +23,7 @@ class AppsPresenter:
         self.model.clear()
         for app in app_settings.app_data.get_apps():
             logging.info(f"Adding {app.get('path')}")
-            i = QStandardItem(app.get('path'))
+            i = QStandardItem(truncate(app.get('path'), with_parent=False))
             self.model.appendRow(i)
 
     def refresh(self, ticket):
