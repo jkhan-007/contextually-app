@@ -11,7 +11,7 @@ branches:
 env:
   global:
   - BUILD_VERSION="0.0.2"
-  - secure: hfpJfnqQ1VwcbMAC0YiHEHWUvO5XNro0k7vE0SQ7zQaexsoE7hcFu6z7NxnJQQHxRZeQAv8Liiri/Hvu5YBZX0hL7eJDkS81H+ynKtXmj6Hx0YYMAR0V/zCOvV417toPetXxJEb73xYDnuKKXI/1aGTu0msk/XSG8IcZ89m5sD7CIc+isuA6HKTbWcZkRM5C5+chP1KFCsFhCTK/EKA8xzKaCunKuSuLGAvRpoS9n4WfOqoNco/70Cv9rDjFya9V7yia6kSXyXAE9AGeU1fTbV9qvkgIeKIVJRWBUXzdAQeRvYfoZDHPZXPr5IfzTk/JkdnQ84CR4f+j0/n9c+t1U0RpzaErdrlyw1oT9Ej02p+0Xzz7dLiCogMBbs33pnRpjw86sTKFeBimCaWQQ1hmPcEonO6fhc1ESwtWxJ1j68xpXpthmViPtN9H9JpJXABTiK41m2nCPAr2mw0wVkInuUpgjT/7K7JxxI1Rex67QVLQxqR9RhpfWLA2hAvG7W4qd/ZrQU+KlQ84H9oPNrrNPK4OgqBqvMxLv8WHw/CULf8ubwsHfanyt5B1PMGuyCDFeDnnBEEKMnqFMHpeOaRVrINsEWhzf0obDPdue6JVRO9haKDwKmucvLY/7ZTYgVn9yxgJl8HNESNkivnCjnxfeU85M39PHVWjaIbbUj2B1h8=
+  - secure: hMJTTD9VTq0Fzb8Ok1G1yIVYPiwOJgzV5l2snS+ji/gQM5YnpR5SXiUyisA8TpKfAHJdFEPnzvCuw+aOR68SPn3ShPqvy4ea/EAoPfEgpcADOAciFy3cFL5wjNy9clEY1xMdIFHOruAvJwfda5KByCEdXUuZIq5dSuLI2uiNX4n6EqQueR/kO+ukAIE4vFkB5nEPf1da3irQLmHk6EDBqIs4ktLhW1B8s3yqpA0kRxx5e3XvnhR36Jab5f8RsnhObvy4IrYzO0Xcukx1VvVfEv0ThmeHk5MUt0McQJT67y+5f8CbvarpFF+J1DrguAxNf+z4mi3ohPjHOvrhLLze4VYguEBe6z4X2gxuWxKcErn+4xxigtsH002NlbXWj8tg13e8U7Qe32bM4xrjYLEKIb5xf9N1+MuT8LtXsYWnRq9KV0PYnqj59qXVo/9pYmuB0DLqGxIKHQFakMb/xjy5WYA4UMSp0enwVLt+e1S/ZLy+UuouwhaYjJLfid6wwx4EwlRszTESpZgd4PKGh7PvUem+DBtbiCIpx8GcMXULbd31ZBNrOtwK3zlOAJQpVCxEmrentmC/jpBfxYQg9AbbHbTyl35lHt4t+NCFNxdiSkjYx0f1MVgDGDW7h81n3T2vu8m526IxpFXCaoKGHWbXv8t/A+bmrc3tgZGNDM3aqms=
 before_install:
 - brew install python3
 - sudo python3 -m pip install -U pip
@@ -30,17 +30,17 @@ script:
 notifications:
   email: false
 before_deploy:
-  - git config --local user.name "jkhan-007"
-  - git config --local user.email "imon.bot@gmail.com"
-  - git remote set-url origin https://jkhan-007:${GITHUB_TOKEN}@github.com/jkhan-007/contextually-app.git
-  - git push origin :refs/tags/${BUILD_VERSION}
-  - git tag -f -am v${BUILD_VERSION} ${BUILD_VERSION}
+- git config --local user.name "jkhan-007"
+- git config --local user.email "imon.bot@gmail.com"
+- git remote set-url origin https://jkhan-007:${GITHUB_TOKEN}@github.com/jkhan-007/contextually-app.git
+- git push origin :refs/tags/${BUILD_VERSION}
+- git tag -f -am v${BUILD_VERSION} ${BUILD_VERSION}
 deploy:
   provider: releases
-  api-key:
-    secure: vU8fRPls5Bs7Vgt0YLWnJHF9eRUqW3qUZLBQKbQIesvuWcG9CxwWzhTb0KE3eXckZe3sbbR+Ox8ylTPiAOkl9IGm2z/6liHJdNiTyyznJtiveyP0RY0HlZt0TWmehOlX2ByEuG5ryaqdGyRVuuFlhPez2k0MYAwT4skseoF/PJnDx4OXIKqb7pZgRutwUM5ZJcS3Y12ulEfMP4Yc5/4lGT2dEO21V+5EhwyaFVatqo7OcxL08lRF6BZwt0Eb0VmqpZsrca+ajJVWrXuD4FF1MekWVVJGfgIDYFArMzWnCBNiGIM7hLUgAmiQXx4V2271VOIwoiDfVQggfokXBoECvWlK/zerkQ+brUEewWEIXT56DVmuMXKlB3LOSdZPHc0O9R0gUEkjznCM0oirublPatqYPndP6CIP1vch+Radyqi+xj31QU2KkLM/NRpXXPLICrtfl0+p5NughjHLHOo6LTI1bd/xm3UrT8SbrkZLuvgeLc74V64nId0adNggltlLRXqNbJPvLVOPcfHakZclCFTqYoPjFDaWrBY91vtiUaf1Wb9NAA+WpmTQNw3eNmKZCDWIfxaKPxp5ai7B3fv+hwlcuaGVHyuzqdgeOoZG63juzmICyfninYxNfYd2/SUCmSjHhVBeLWPVKp0U5TvQ/CuRYAf8STCs7qvuk+W2fc0=
   file: "${TRAVIS_BUILD_DIR}/Contextually-${BUILD_VERSION}-macOS.dmg"
   overwrite: true
   skip_cleanup: true
   on:
     repo: jkhan-007/contextually-app
+  api-key:
+    secure: T/wwJAnH+VbZlOBpaOYB5bfGnxFF03z2Ia4Ohyrtf4y1T0YXaDZPqhSTQQ8kFZOR3rIPpWXBryGmMhAfh1z/82ol8fyDu2zkaEBHLhpKOqj+CW0re3CGB8v41LdNYr7h2apfdqNjuKbpWERC+p2eo/X1PXRG2Mjzn82/MJymZW8H4ZasjzPhRgjXYt9hJZYhXf9vB7Jrl5s/WrnfLmIzVzWpKuwuZgeTWQLmEF5dnSLmUVo1twZnoTMCvW6sgrnk1eZAxoGgbD1/v+e+ppkbO+cnlw67PTUrPrihIrLm/nwFbuxB/BepR3SLsreUCV+baUPMQXchrgtpjruQ7sYU9ucmYM5mvmbTngHH05MiJFGCMTLqp/NosCGT5ih9zo8o9Oo3zeZzkvcHvRuGTpw81pIRKSWzgrjPSZWUVbRZ+ThRqFj7Y90ucXNzP2p6Mt3vPVVicjVEU5G7mzf6q1WkVb6D/bCKNX0z1C/DWIlC4+GQbK5uruylVUA9vJneyfH/7p39zJSgi2pskTILOZ5Zr/QJkdUwjY5IQaRT8LkgUtBU9MyPaNawZRyK4adCQxvoEnDzY/srK/aspeYv10q7eCJRtBKMotQPt/ID1wuQBrKwHA0v5mPaa0XilH8Gu2MSa9kpKF8egogEPjHJqLOqIWL5WG4DxPtxa+evCycfdyM=
