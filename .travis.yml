@@ -32,9 +32,9 @@ notifications:
 before_deploy:
 - git config --local user.name "jkhan-007"
 - git config --local user.email "imon.bot@gmail.com"
-- git remote set-url origin https://jkhan-007:${GITHUB_TOKEN}@github.com/jkhan-007/contextually-app.git
-- git push origin :refs/tags/${BUILD_VERSION}
-- git tag -f -am v${BUILD_VERSION} ${BUILD_VERSION}
+#- git remote set-url origin https://jkhan-007:${GITHUB_TOKEN}@github.com/jkhan-007/contextually-app.git
+#- git push origin :refs/tags/${BUILD_VERSION}
+#- git tag -f -am v${BUILD_VERSION} ${BUILD_VERSION}
 deploy:
   provider: releases
   file: "${TRAVIS_BUILD_DIR}/Contextually-${BUILD_VERSION}-macOS.dmg"
