@@ -36,7 +36,7 @@ before_deploy:
 - git tag -f -am v${BUILD_VERSION} ${BUILD_VERSION}
 deploy:
   provider: releases
-  api-key: "${GITHUB_TOKEN"
+  api-key: "${GITHUB_TOKEN}"
   file: "${TRAVIS_BUILD_DIR}/Contextually-${BUILD_VERSION}-macOS.dmg"
   overwrite: true
   skip_cleanup: true
