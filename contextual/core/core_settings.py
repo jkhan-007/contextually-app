@@ -6,7 +6,7 @@ from pathlib import Path
 from tinydb import TinyDB
 from typing import Any, Union
 
-from contextual.core import str_to_bool
+from contextual.core import str_to_bool, rot13, tor31
 from contextual.model.app_data import AppData
 
 
@@ -45,7 +45,7 @@ class CoreSettings:
         logging.basicConfig(
             handlers=handlers,
             format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-            datefmt='%Y-%m-%d %H:%M',
+            datefmt='%Y-%m-%d %H:%M:%S',
             level=logging.DEBUG
         )
         logging.captureWarnings(capture=True)
@@ -63,13 +63,14 @@ class CoreSettings:
     def save_configuration(self, jira_server, jira_username, jira_password, updates_check):
         self.settings.setValue('server', jira_server)
         self.settings.setValue('username', jira_username)
-        self.settings.setValue('password', jira_password)
+        self.settings.setValue('password', rot13(jira_password))
         self.settings.setValue('startupCheck', updates_check)
         self.settings.sync()
 
     def load_jira_configuration(self):
         return \
-            self.settings.value("server", ""), self.settings.value("username", ""), self.settings.value("password", "")
+            self.settings.value("server", ""), self.settings.value("username", ""), tor31(
+                self.settings.value("password", ""))
 
     def load_updates_configuration(self):
         return str_to_bool(self.settings.value("startupCheck", True))

@@ -1,4 +1,13 @@
+import codecs
 from pathlib import Path
+
+
+def rot13(in_str: str):
+    return codecs.encode(in_str, 'rot13')
+
+
+def tor31(in_str: str):
+    return codecs.decode(in_str, 'rot13')
 
 
 def truncate(directory, with_parent=True):
