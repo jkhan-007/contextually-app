@@ -2,6 +2,7 @@ import logging
 
 from contextual.core.core_settings import app_settings
 from contextual.model.app_data import Ticket
+from contextual.ui.widgets.ticket_page import WebEnginePage
 
 
 class TicketContentPresenter:
@@ -12,6 +13,8 @@ class TicketContentPresenter:
         self.selected_ticket = None
         self.lbl_title = self.parent_view.lbl_ticket_title
         self.txt_description = self.parent_view.txt_description
+        self.web_page = WebEnginePage(self.txt_description)
+        self.txt_description.setPage(self.web_page)
         app_settings.app_data.signals.ticket_changed.connect(self.refresh)
 
     def refresh(self, ticket):
