@@ -14,7 +14,7 @@ env:
 script:
   - git config --local user.name "jkhan-007"
   - git config --local user.email "imon.bot@gmail.com"
-  - git remote set-url origin https://jkhan-007:${GITHUB_TOKEN}@github.com/jkhan-007/contextually-app-osx.git
+  - git remote set-url origin https://jkhan-007:${GITHUB_TOKEN}@github.com/jkhan-007/contextually-app.git
   - git push origin :refs/tags/${BUILD_VERSION}
   - git tag -f -am v${BUILD_VERSION} ${BUILD_VERSION}
 notifications:
