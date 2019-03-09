@@ -17,5 +17,6 @@ script:
   - git remote set-url origin https://jkhan-007:${GITHUB_TOKEN}@github.com/jkhan-007/contextually-app.git
   - git push origin :refs/tags/${BUILD_VERSION}
   - git tag -f -am v${BUILD_VERSION} ${BUILD_VERSION}
+  - git push origin ${BUILD_VERSION}
 notifications:
   email: false
