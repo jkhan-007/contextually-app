@@ -9,6 +9,7 @@ class WorkerPool:
 
     def shutdown(self):
         self.thread_pool.clear()
+        self.thread_pool.waitForDone(msecs=2)
 
 
 pool = WorkerPool()

@@ -1,5 +1,4 @@
 import logging
-import pkg_resources
 from PyQt5 import QtWidgets
 from PyQt5.QtGui import QIcon, QStandardItemModel
 
@@ -16,7 +15,7 @@ class TicketsListPresenter:
         self.tickets_list_widget.clicked.connect(self.on_double_clicked)
         self.jira_interactor = JiraInteractor()
         app_settings.app_data.signals.index_changed.connect(self.refresh)
-        self.story_icon = QIcon(pkg_resources.resource_filename('contextual.images', 'notifier-48.png'))
+        self.story_icon = QIcon(":/images/notifier-48.png")
 
     def refresh(self):
         self.tickets_list_widget.clear()

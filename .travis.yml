@@ -10,21 +10,20 @@ branches:
   - master
 env:
   global:
-  - BUILD_VERSION="0.0.2"
+  - BUILD_VERSION="0.0.3"
 before_install:
 - brew install python3
 - sudo python3 -m pip install -U pip
-- python3 -m pip install pyinstaller pyqt5-sip pyqt5
+- python3 -m pip install py2app pyqt5-sip pyqt5
 - npm install -g appdmg
 install:
 - echo "Install Done!"
 script:
-- cd packaging/pyinstaller
 - rm -rf build
 - rm -rf dist
-- python3 -m PyInstaller --clean contextually.osx.spec
-- appdmg dmg.json Contextually-${BUILD_VERSION}-macOS.dmg
-- mv Contextually-${BUILD_VERSION}-macOS.dmg "${TRAVIS_BUILD_DIR}"
+- python3 setup.py py2app
+- appdmg dmg.json dist/Contextually-${BUILD_VERSION}-macOS.dmg
+- mv dist/Contextually-${BUILD_VERSION}-macOS.dmg "${TRAVIS_BUILD_DIR}"
 - echo "Done!"
 notifications:
   email: false
