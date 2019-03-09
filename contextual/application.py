@@ -1,9 +1,10 @@
-import PyQt5
 import logging
 import sys
 import traceback
+
+import PyQt5
 from PyQt5.QtCore import QUrl
-from PyQt5.QtGui import QDesktopServices, QCloseEvent
+from PyQt5.QtGui import QDesktopServices, QCloseEvent, QIcon
 from PyQt5.QtWidgets import qApp, QApplication, QDesktopWidget, QFileDialog, QMainWindow, QToolBar
 
 import contextual
@@ -87,6 +88,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             toolbar_actions = self.tool_bar.actions()
             updates_action = next(act for act in toolbar_actions if act.text() == 'Update Available')
             if updates_action:
+                updates_action.setIcon(QIcon(":/images/download-48.png"))
                 updates_action.setEnabled(True)
 
     def open_releases_page(self) -> None:

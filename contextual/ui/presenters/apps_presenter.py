@@ -1,5 +1,6 @@
 import logging
 import subprocess
+
 from PyQt5.QtCore import *
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 
@@ -30,10 +31,7 @@ class AppsPresenter:
         logging.info(f"Refreshing Apps for ticket {ticket.ticket_number} - Workspace {ticket.workspace_dir}")
         self.ticket = ticket
         self.model.clear()
-        for app in app_settings.app_data.get_apps():
-            logging.info(f"Adding {app.get('path')}")
-            i = QStandardItem(app.get('path'))
-            self.model.appendRow(i)
+        self.refresh_apps()
 
     def add_application(self):
         application_name, file_types = self.parent_view.open_file(

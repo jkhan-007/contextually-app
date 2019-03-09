@@ -1,7 +1,6 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import *
-from contextual import resources
+from PyQt5.QtWidgets import QAction, QSizePolicy, QWidget
 
 
 def tool_bar_items(self):
@@ -24,7 +23,7 @@ def tool_bar_items(self):
     spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
     self.tool_bar.addWidget(spacer)
 
-    tool_bar_update_available = QAction(QIcon(":/images/download-48.png"), 'Update Available', self)
+    tool_bar_update_available = QAction(QIcon(":/images/download-disabled-48.png"), 'Update Available', self)
     tool_bar_update_available.setEnabled(False)
     tool_bar_update_available.triggered.connect(self.open_releases_page)
 
