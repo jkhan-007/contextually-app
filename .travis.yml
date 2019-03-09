@@ -1,44 +1,21 @@
-language: objective-c
-os: osx
-osx_image: xcode9.2
+language: python
+os: linux
+dist: trusty
 sudo: required
 python: '3.6'
 git:
   depth: 1
 branches:
   only:
-  - master
+    - master
 env:
   global:
-  - BUILD_VERSION="0.0.4"
-before_install:
-- brew install python3
-- sudo python3 -m pip install -U pip
-- python3 -m pip install py2app
-- python3 -m pip install -r requirements.txt
-- npm install -g appdmg
-install:
-- echo "Install Done!"
+    - BUILD_VERSION="0.0.5"
 script:
-- rm -rf build
-- rm -rf dist
-- python3 setup.py py2app
-- appdmg dmg.json dist/Contextually-${BUILD_VERSION}-macOS.dmg
-- mv dist/Contextually-${BUILD_VERSION}-macOS.dmg "${TRAVIS_BUILD_DIR}"
-- echo "Done!"
+  - git config --local user.name "jkhan-007"
+  - git config --local user.email "imon.bot@gmail.com"
+  - git remote set-url origin https://jkhan-007:${GITHUB_TOKEN}@github.com/jkhan-007/contextually-app-osx.git
+  - git push origin :refs/tags/${BUILD_VERSION}
+  - git tag -f -am v${BUILD_VERSION} ${BUILD_VERSION}
 notifications:
   email: false
-before_deploy:
-- git config --local user.name "jkhan-007"
-- git config --local user.email "imon.bot@gmail.com"
-- git remote set-url origin https://jkhan-007:${GITHUB_TOKEN}@github.com/jkhan-007/contextually-app-osx.git
-- git push origin :refs/tags/${BUILD_VERSION}
-- git tag -f -am v${BUILD_VERSION} ${BUILD_VERSION}
-deploy:
-  provider: releases
-  api-key: "${GITHUB_TOKEN}"
-  file: "${TRAVIS_BUILD_DIR}/Contextually-${BUILD_VERSION}-macOS.dmg"
-  overwrite: true
-  skip_cleanup: true
-  on:
-    repo: jkhan-007/contextually-app-osx
