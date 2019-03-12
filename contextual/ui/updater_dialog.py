@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import qApp, QDialog
 
 
 class Updater(QDialog):
-    api_github_latest: QUrl = QUrl('https://api.github.com/repos/jkhan-007/contextually-app/releases/latest')
+    api_github_latest: QUrl = QUrl('https://api.github.com/repos/jkhan-007/contextually-app-osx/releases/latest')
 
     def __init__(self, parent=None, flags=Qt.Dialog | Qt.WindowCloseButtonHint):
         super(Updater, self).__init__(parent, flags)
