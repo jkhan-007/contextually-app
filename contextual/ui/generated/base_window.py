@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'resources/ui/base_window.ui'
 #
-# Created by: PyQt5 UI code generator 5.10
+# Created by: PyQt5 UI code generator 5.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -19,6 +19,14 @@ class Ui_MainWindow(object):
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.gridLayout = QtWidgets.QGridLayout()
         self.gridLayout.setObjectName("gridLayout")
+        self.lbl_apps = QtWidgets.QLabel(self.centralwidget)
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
+        self.lbl_apps.setFont(font)
+        self.lbl_apps.setAlignment(QtCore.Qt.AlignCenter)
+        self.lbl_apps.setObjectName("lbl_apps")
+        self.gridLayout.addWidget(self.lbl_apps, 3, 2, 1, 1)
         self.list_apps = QtWidgets.QListView(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.MinimumExpanding)
         sizePolicy.setHorizontalStretch(0)
@@ -27,18 +35,10 @@ class Ui_MainWindow(object):
         self.list_apps.setSizePolicy(sizePolicy)
         self.list_apps.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.list_apps.setObjectName("list_apps")
-        self.gridLayout.addWidget(self.list_apps, 3, 2, 1, 1)
-        self.lbl_apps = QtWidgets.QLabel(self.centralwidget)
-        font = QtGui.QFont()
-        font.setBold(True)
-        font.setWeight(75)
-        self.lbl_apps.setFont(font)
-        self.lbl_apps.setAlignment(QtCore.Qt.AlignCenter)
-        self.lbl_apps.setObjectName("lbl_apps")
-        self.gridLayout.addWidget(self.lbl_apps, 2, 2, 1, 1)
+        self.gridLayout.addWidget(self.list_apps, 4, 2, 1, 1)
         self.btn_add_application = QtWidgets.QPushButton(self.centralwidget)
         self.btn_add_application.setObjectName("btn_add_application")
-        self.gridLayout.addWidget(self.btn_add_application, 4, 2, 1, 1)
+        self.gridLayout.addWidget(self.btn_add_application, 5, 2, 1, 1)
         self.verticalLayout_2 = QtWidgets.QVBoxLayout()
         self.verticalLayout_2.setSizeConstraint(QtWidgets.QLayout.SetFixedSize)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
@@ -65,6 +65,7 @@ class Ui_MainWindow(object):
         self.lbl_workspace_dir.setObjectName("lbl_workspace_dir")
         self.horizontalLayout.addWidget(self.lbl_workspace_dir)
         self.btn_workspace = QtWidgets.QToolButton(self.centralwidget)
+        self.btn_workspace.setAutoRaise(False)
         self.btn_workspace.setObjectName("btn_workspace")
         self.horizontalLayout.addWidget(self.btn_workspace)
         self.verticalLayout_2.addLayout(self.horizontalLayout)
@@ -78,10 +79,15 @@ class Ui_MainWindow(object):
         self.lbl_branch_status.setSizePolicy(sizePolicy)
         self.lbl_branch_status.setMaximumSize(QtCore.QSize(16777215, 20))
         self.lbl_branch_status.setText("")
-        self.lbl_branch_status.setAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
+        self.lbl_branch_status.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         self.lbl_branch_status.setObjectName("lbl_branch_status")
         self.horizontalLayout_2.addWidget(self.lbl_branch_status)
         self.verticalLayout_2.addLayout(self.horizontalLayout_2)
+        self.lbl_pending_changes = QtWidgets.QLabel(self.centralwidget)
+        self.lbl_pending_changes.setText("")
+        self.lbl_pending_changes.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.lbl_pending_changes.setObjectName("lbl_pending_changes")
+        self.verticalLayout_2.addWidget(self.lbl_pending_changes)
         self.gridLayout.addLayout(self.verticalLayout_2, 0, 2, 2, 1)
         self.lbl_ticket_title = QtWidgets.QLabel(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
@@ -107,10 +113,10 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.tickets_list_widget.sizePolicy().hasHeightForWidth())
         self.tickets_list_widget.setSizePolicy(sizePolicy)
         self.tickets_list_widget.setObjectName("tickets_list_widget")
-        self.gridLayout.addWidget(self.tickets_list_widget, 0, 0, 5, 1)
-        self.txt_description = QtWebEngineWidgets.QWebEngineView(self.centralwidget)
-        self.txt_description.setObjectName("txt_description")
-        self.gridLayout.addWidget(self.txt_description, 1, 1, 4, 1)
+        self.gridLayout.addWidget(self.tickets_list_widget, 0, 0, 6, 1)
+        self.web_engine = QtWebEngineWidgets.QWebEngineView(self.centralwidget)
+        self.web_engine.setObjectName("web_engine")
+        self.gridLayout.addWidget(self.web_engine, 1, 1, 5, 1)
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
 
@@ -122,7 +128,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.lbl_apps.setText(_translate("MainWindow", "Applications"))
         self.btn_add_application.setText(_translate("MainWindow", "Add Application"))
-        self.lbl_connect_source.setText(_translate("MainWindow", "Connect with Source"))
+        self.lbl_connect_source.setText(_translate("MainWindow", "Git"))
         self.btn_workspace.setText(_translate("MainWindow", "..."))
 
 from PyQt5 import QtWebEngineWidgets

@@ -5,6 +5,7 @@
         <file>images/download-disabled-48.png</file>
         <file>images/notifier-48.png</file>
         <file>images/refresh-48.png</file>
+        <file>images/folder-48.png</file>
         <file>images/contextually.png</file>
         <file>styles/light.qss</file>
     </qresource>
