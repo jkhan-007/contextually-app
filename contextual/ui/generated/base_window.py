@@ -126,13 +126,13 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3.addWidget(self.lbl_ticket_title)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_3.addItem(spacerItem)
-        self.toolButton = QtWidgets.QToolButton(self.centralwidget)
-        self.toolButton.setEnabled(False)
+        self.btn_copy_ticket = QtWidgets.QToolButton(self.centralwidget)
+        self.btn_copy_ticket.setEnabled(False)
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap(":/images/copy-48.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.toolButton.setIcon(icon1)
-        self.toolButton.setObjectName("toolButton")
-        self.horizontalLayout_3.addWidget(self.toolButton)
+        self.btn_copy_ticket.setIcon(icon1)
+        self.btn_copy_ticket.setObjectName("btn_copy_ticket")
+        self.horizontalLayout_3.addWidget(self.btn_copy_ticket)
         self.gridLayout.addLayout(self.horizontalLayout_3, 0, 1, 1, 1)
         spacerItem1 = QtWidgets.QSpacerItem(20, 100, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.gridLayout.addItem(spacerItem1, 2, 5, 1, 1)
@@ -150,7 +150,7 @@ class Ui_MainWindow(object):
         self.lbl_connect_source.setText(_translate("MainWindow", "Git"))
         self.btn_workspace.setText(_translate("MainWindow", "..."))
         self.lbl_ticket_title.setText(_translate("MainWindow", "Ticket title"))
-        self.toolButton.setText(_translate("MainWindow", "..."))
+        self.btn_copy_ticket.setText(_translate("MainWindow", "..."))
 
 from PyQt5 import QtWebEngineWidgets
 import resources_rc
