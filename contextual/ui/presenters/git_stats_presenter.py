@@ -2,7 +2,7 @@ import logging
 import os
 from PyQt5.QtWidgets import QFileDialog
 
-from contextual.core import truncate
+from contextual.core import truncate, abbreviate
 from contextual.core.core_settings import app_settings
 from contextual.core.git_interactor import git_info
 from contextual.model.app_data import Ticket
@@ -35,7 +35,8 @@ class GitStatsPresenter:
             directory_label = f"<a href=\"file://{directory}\">{viewable_directory}</a>"
             self.parent_view.lbl_workspace_dir.setText(directory_label)
             branch, no_changes = git_info(directory)
-            self.parent_view.lbl_branch_status.setText(f"{branch} (Pending Changes {no_changes})")
+            self.parent_view.lbl_branch_status.setText(abbreviate(branch, length=25))
+            self.parent_view.lbl_pending_changes.setText(f"Pending Changes {no_changes}")
         else:
             self.parent_view.lbl_workspace_dir.setText("select workspace directory 👉")
             self.parent_view.lbl_branch_status.setText("(branch) (pending changes)")

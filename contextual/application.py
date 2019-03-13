@@ -2,7 +2,6 @@ import logging
 import sys
 import traceback
 
-import PyQt5
 from PyQt5.QtCore import QUrl
 from PyQt5.QtGui import QDesktopServices, QCloseEvent, QIcon
 from PyQt5.QtWidgets import qApp, QApplication, QDesktopWidget, QFileDialog, QMainWindow, QToolBar
@@ -30,7 +29,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.resize(1024, 768)
         self.setWindowTitle('Contextual - Focused workflow for developers')
-        self.setWindowIcon(PyQt5.QtGui.QIcon(":/images/contextually.png"))
+        self.setWindowIcon(QIcon(":/images/contextually.png"))
+
+        self.btn_workspace.setIcon(QIcon(":/images/folder-48.png"))
 
         # Add Components on Main Window
         self.updater = Updater(self)

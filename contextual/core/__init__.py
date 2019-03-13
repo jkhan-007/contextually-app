@@ -10,6 +10,10 @@ def tor31(in_str: str):
     return codecs.decode(in_str, 'rot13')
 
 
+def abbreviate(in_str: str, length=30):
+    return f"{in_str[:length]} ..." if len(in_str) > length else in_str
+
+
 def truncate(directory, with_parent=True):
     p = Path(directory)
     if with_parent:

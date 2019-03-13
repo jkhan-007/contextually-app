@@ -12,9 +12,9 @@ class TicketContentPresenter:
         self.parent_view = parent_view
         self.selected_ticket = None
         self.lbl_title = self.parent_view.lbl_ticket_title
-        self.txt_description = self.parent_view.txt_description
-        self.web_page = WebEnginePage(self.txt_description)
-        self.txt_description.setPage(self.web_page)
+        self.web_engine = self.parent_view.web_engine
+        self.web_page = WebEnginePage(self.web_engine)
+        self.web_engine.setPage(self.web_page)
         app_settings.app_data.signals.ticket_changed.connect(self.refresh)
 
     def refresh(self, ticket):
@@ -24,4 +24,4 @@ class TicketContentPresenter:
         ticket_browse_link = f"{jira_server}/browse/{self.selected_ticket.ticket_number}"
         ticket_title = f"<a href=\"{ticket_browse_link}\">{self.selected_ticket.ticket_number}</a> - {self.selected_ticket.ticket_title}"
         self.lbl_title.setText(ticket_title)
-        self.txt_description.setHtml(self.selected_ticket.ticket_description)
+        self.web_engine.setHtml(self.selected_ticket.ticket_description)

@@ -21,19 +21,6 @@
     <item row="0" column="0">
      <layout class="QGridLayout" name="gridLayout">
       <item row="3" column="2">
-       <widget class="QListView" name="list_apps">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Maximum" vsizetype="MinimumExpanding">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="editTriggers">
-         <set>QAbstractItemView::NoEditTriggers</set>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="2">
        <widget class="QLabel" name="lbl_apps">
         <property name="font">
          <font>
@@ -50,6 +37,19 @@
        </widget>
       </item>
       <item row="4" column="2">
+       <widget class="QListView" name="list_apps">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Maximum" vsizetype="MinimumExpanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="2">
        <widget class="QPushButton" name="btn_add_application">
         <property name="text">
          <string>Add Application</string>
@@ -76,7 +76,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Connect with Source</string>
+           <string>Git</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignHCenter|Qt::AlignTop</set>
@@ -109,6 +109,9 @@
             <property name="text">
              <string>...</string>
             </property>
+            <property name="autoRaise">
+             <bool>false</bool>
+            </property>
            </widget>
           </item>
          </layout>
@@ -133,11 +136,21 @@
              <string/>
             </property>
             <property name="alignment">
-             <set>Qt::AlignHCenter|Qt::AlignTop</set>
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
             </property>
            </widget>
           </item>
          </layout>
+        </item>
+        <item>
+         <widget class="QLabel" name="lbl_pending_changes">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -170,7 +183,7 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="0" rowspan="5">
+      <item row="0" column="0" rowspan="6">
        <widget class="QListWidget" name="tickets_list_widget">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
@@ -180,8 +193,8 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="1" rowspan="4">
-       <widget class="QWebEngineView" name="txt_description"/>
+      <item row="1" column="1" rowspan="5">
+       <widget class="QWebEngineView" name="web_engine"/>
       </item>
      </layout>
     </item>
