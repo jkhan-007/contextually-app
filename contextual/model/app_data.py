@@ -68,6 +68,7 @@ class AppDataSignals(QObject):
     ticket_changed = pyqtSignal(Ticket)
     app_changed = pyqtSignal(str)
     index_changed = pyqtSignal()
+    ticket_transition_changed = pyqtSignal(str, str)
 
 
 class AppData:
@@ -133,3 +134,6 @@ class AppData:
         updated_ticket = self.get_ticket(ticket_number)
         self.signals.ticket_changed.emit(updated_ticket)
         return updated_ticket
+
+    def transition_state(self, number, url):
+        self.signals.ticket_transition_changed.emit(number, url)

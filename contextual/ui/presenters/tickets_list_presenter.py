@@ -15,6 +15,7 @@ class TicketsListPresenter:
         self.tickets_list_widget.clicked.connect(self.on_double_clicked)
         self.jira_interactor = JiraInteractor()
         app_settings.app_data.signals.index_changed.connect(self.refresh)
+        app_settings.app_data.signals.ticket_transition_changed.connect(self.refresh_ticket)
         self.story_icon = QIcon(":/images/notifier-48.png")
 
     def refresh(self):

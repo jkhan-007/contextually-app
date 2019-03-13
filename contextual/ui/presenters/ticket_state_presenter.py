@@ -54,7 +54,7 @@ class TicketStatePresenter:
     def on_success(self, result):
         ticket = result.get('ticket')
         self.parent_view.hide_progress_dialog()
-        self.parent_view.tickets_list_presenter.refresh_ticket(ticket.ticket_number, ticket.ticket_url)
+        app_settings.transition_state(ticket.ticket_number, ticket.ticket_url)
 
     def on_failure(self, result):
         logging.error("Unable to change state")

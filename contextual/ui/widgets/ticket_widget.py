@@ -49,7 +49,8 @@ class TicketWidget(QtWidgets.QWidget):
     def set_data(self, ticket_number, ticket_status, ticket_title, url):
         self.lbl_ticket_number.setText(ticket_number)
         self.lbl_ticket_status.setText(ticket_status)
-        self.lbl_ticket_title.setText(f"{ticket_title[:30]} ...")
+        truncated_text = f"{ticket_title[:30]} ..." if len(ticket_title) > 30 else ticket_title
+        self.lbl_ticket_title.setText(truncated_text)
         self.url = url
         self.setToolTip(ticket_title)
 

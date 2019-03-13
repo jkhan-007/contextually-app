@@ -12,7 +12,7 @@ class Requester:
         self.is_offline = os.getenv("OFFLINE", "false").lower() == "true"
         if self.is_offline:
             logging.info("Offline mode: Setting up offline store")
-            requests_cache.install_cache(
+            requests_cache.configure(
                 '../offline_data/data_cache',
                 backend='sqlite',
                 expire_after=10000,
