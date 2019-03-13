@@ -22,6 +22,6 @@ class TicketContentPresenter:
         jira_server, _, _ = app_settings.load_jira_configuration()
         self.selected_ticket = ticket
         ticket_browse_link = f"{jira_server}/browse/{self.selected_ticket.ticket_number}"
-        ticket_title = f"<a href=\"{ticket_browse_link}\">{self.selected_ticket.ticket_number}</a> - {self.selected_ticket.ticket_title} - ({self.selected_ticket.ticket_status})"
+        ticket_title = f"<a href=\"{ticket_browse_link}\">{self.selected_ticket.ticket_number}</a> - {self.selected_ticket.ticket_title}"
         self.lbl_title.setText(ticket_title)
         self.txt_description.setHtml(self.selected_ticket.ticket_description)

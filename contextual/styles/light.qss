@@ -4,4 +4,7 @@ QToolBar {
     border-bottom: 1px solid #4D545B;
 }
 
+QListView#list_apps {
+    font-size: 16px;
+}
 /* -------------------------------------------------------------------------- */
