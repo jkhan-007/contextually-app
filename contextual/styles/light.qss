@@ -7,4 +7,9 @@ QToolBar {
 QListView#list_apps {
     font-size: 16px;
 }
+
+QLabel#lbl_branch_status {
+    font-size: 16px;
+    font: bold;
+}
 /* -------------------------------------------------------------------------- */

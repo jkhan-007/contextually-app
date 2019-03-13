@@ -31,8 +31,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setWindowTitle('Contextual - Focused workflow for developers')
         self.setWindowIcon(QIcon(":/images/contextually.png"))
 
-        self.btn_workspace.setIcon(QIcon(":/images/folder-48.png"))
-
         # Add Components on Main Window
         self.updater = Updater(self)
         self.menu_bar = self.menuBar()

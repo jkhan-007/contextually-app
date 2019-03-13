@@ -1,5 +1,6 @@
 import logging
 import os
+
 from PyQt5.QtWidgets import QFileDialog
 
 from contextual.core import truncate, abbreviate
@@ -30,6 +31,8 @@ class GitStatsPresenter:
         self.update_view(ticket.workspace_dir)
 
     def update_view(self, directory):
+        self.parent_view.btn_workspace.setEnabled(self.selected_ticket is not None)
+
         if directory:
             viewable_directory = truncate(directory)
             directory_label = f"<a href=\"file://{directory}\">{viewable_directory}</a>"
