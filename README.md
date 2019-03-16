@@ -31,3 +31,5 @@ https://icons8.com/icon/pack/free-icons/ios-glyphs
 ```
 $ pyrcc5 -compress 9 -o contextual/resources.py contextual/resources.qrc
 ```
+
+#### Generate code from ui files

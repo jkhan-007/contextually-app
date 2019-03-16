@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1152</width>
-    <height>917</height>
+    <height>723</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -201,7 +201,7 @@
            <number>1</number>
           </property>
           <property name="text">
-           <string>Ticket title</string>
+           <string>Select Ticket</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
