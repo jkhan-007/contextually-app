@@ -9,6 +9,7 @@ from contextual.ui.widgets.ticket_page import WebEnginePage
 
 class TicketContentPresenter:
     selected_ticket: Ticket
+    no_tickets_selected_title: str = "👈  Please select a ticket"
 
     def __init__(self, parent_view):
         self.parent_view = parent_view
@@ -17,6 +18,7 @@ class TicketContentPresenter:
         self.web_engine = self.parent_view.web_engine
         self.web_page = WebEnginePage(self.web_engine)
         self.web_engine.setPage(self.web_page)
+        self.lbl_title.setText(self.no_tickets_selected_title)
         app_settings.app_data.signals.ticket_changed.connect(self.refresh)
         self.parent_view.btn_copy_ticket.clicked.connect(self.ticket_to_clipboard)
 
@@ -34,5 +36,8 @@ class TicketContentPresenter:
         jira_server, _, _ = app_settings.load_jira_configuration()
         ticket_browse_link = f"{jira_server}/browse/{self.selected_ticket.ticket_number}"
         ticket_title = f"<a href=\"{ticket_browse_link}\">{self.selected_ticket.ticket_number}</a> - {self.selected_ticket.ticket_title}"
-        self.lbl_title.setText(ticket_title)
+        if not self.selected_ticket:
+            self.lbl_title.setText(self.no_tickets_selected_title)
+        else:
+            self.lbl_title.setText(ticket_title)
         self.web_engine.setHtml(self.selected_ticket.ticket_description)
