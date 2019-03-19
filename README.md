@@ -33,3 +33,7 @@ $ pyrcc5 -compress 9 -o contextual/resources.py contextual/resources.qrc
 ```
 
 #### Generate code from ui files
+
+```
+$ for i in `ls resources/ui/*.ui`; do FNAME=`basename $i ".ui"`; pyuic5 $i > "contextual/ui/generated/$FNAME.py"; done
+```
