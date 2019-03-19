@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1152</width>
-    <height>723</height>
+    <width>1128</width>
+    <height>669</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,23 +20,7 @@
    <layout class="QGridLayout" name="gridLayout_2">
     <item row="0" column="0">
      <layout class="QGridLayout" name="gridLayout">
-      <item row="3" column="5">
-       <widget class="QLabel" name="lbl_apps">
-        <property name="font">
-         <font>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Applications</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="5">
+      <item row="4" column="5" rowspan="4">
        <widget class="QListView" name="list_apps">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Maximum" vsizetype="MinimumExpanding">
@@ -46,13 +30,6 @@
         </property>
         <property name="editTriggers">
          <set>QAbstractItemView::NoEditTriggers</set>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="5">
-       <widget class="QPushButton" name="btn_add_application">
-        <property name="text">
-         <string>Add Application</string>
         </property>
        </widget>
       </item>
@@ -164,18 +141,44 @@
         </item>
        </layout>
       </item>
-      <item row="0" column="0" rowspan="6">
-       <widget class="QListWidget" name="tickets_list_widget">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
+      <item row="3" column="5">
+       <widget class="QLabel" name="lbl_apps">
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Applications</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
-      <item row="1" column="1" rowspan="5">
-       <widget class="QWebEngineView" name="web_engine"/>
+      <item row="8" column="5">
+       <widget class="QPushButton" name="btn_add_application">
+        <property name="text">
+         <string>Add Application</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="5">
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>100</height>
+         </size>
+        </property>
+       </spacer>
       </item>
       <item row="0" column="1">
        <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -240,21 +243,31 @@
         </item>
        </layout>
       </item>
-      <item row="2" column="5">
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
+      <item row="1" column="1" rowspan="6">
+       <widget class="QWebEngineView" name="web_engine"/>
+      </item>
+      <item row="7" column="1" rowspan="2">
+       <widget class="QPlainTextEdit" name="txt_ticket_notes">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
         </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
+        <property name="placeholderText">
+         <string>Add your notes here ...</string>
         </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>100</height>
-         </size>
+       </widget>
+      </item>
+      <item row="0" column="0" rowspan="9">
+       <widget class="QListWidget" name="tickets_list_widget">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
         </property>
-       </spacer>
+       </widget>
       </item>
      </layout>
     </item>

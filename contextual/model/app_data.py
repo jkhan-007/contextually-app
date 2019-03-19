@@ -17,6 +17,7 @@ class Ticket:
         self.ticket_comments = []
         self.last_updated = None
         self.workspace_dir = None
+        self.ticket_notes = None
         self.__dict__.update(kwargs)
 
     def to_json(self):
@@ -30,6 +31,7 @@ class Ticket:
             'ticket_description': self.ticket_description,
             'last_updated': self.last_updated,
             'workspace_dir': self.workspace_dir,
+            'ticket_notes': self.ticket_notes,
             'ticket_comments': [c for c in self.ticket_comments],
             'ticket_transitions': [tt for tt in self.ticket_transitions]
         }
@@ -46,6 +48,7 @@ class Ticket:
         c.ticket_description = json_obj.get('ticket_description', None)
         c.last_updated = json_obj.get('last_updated', None)
         c.workspace_dir = json_obj.get('workspace_dir', None)
+        c.ticket_notes = json_obj.get('ticket_notes', None)
         c.ticket_comments = [c for c in json_obj.get('ticket_comments', [])]
         c.ticket_transitions = [tt for tt in json_obj.get('ticket_transitions', [])]
         return c
@@ -130,6 +133,16 @@ class AppData:
         TicketQuery = Query()
         ticket = Ticket.from_json(self.db.get(TicketQuery.ticket_number == ticket_number))
         ticket.workspace_dir = workspace_dir
+        self.db.upsert(ticket.to_json(), TicketQuery.ticket_number == ticket_number)
+        updated_ticket = self.get_ticket(ticket_number)
+        self.signals.ticket_changed.emit(updated_ticket)
+        return updated_ticket
+
+    def add_ticket_notes(self, ticket_number, ticket_notes):
+        logging.info(f"Adding notes to Ticket: {ticket_number}")
+        TicketQuery = Query()
+        ticket = Ticket.from_json(self.db.get(TicketQuery.ticket_number == ticket_number))
+        ticket.ticket_notes = ticket_notes
         self.db.upsert(ticket.to_json(), TicketQuery.ticket_number == ticket_number)
         updated_ticket = self.get_ticket(ticket_number)
         self.signals.ticket_changed.emit(updated_ticket)
