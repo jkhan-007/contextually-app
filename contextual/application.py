@@ -22,7 +22,7 @@ from contextual.ui.updater_dialog import Updater
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
-    releases_page: QUrl = QUrl('https://github.com/jkhan-007/contextually-app/releases/latest')
+    releases_page: QUrl = QUrl('https://github.com/jkhan-007/contextually-app-osx/releases/latest')
 
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
