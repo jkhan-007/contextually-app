@@ -5,16 +5,30 @@ from PyQt5.QtWidgets import QFileDialog
 
 from contextual.core import truncate, abbreviate
 from contextual.core.core_settings import app_settings
-from contextual.core.git_interactor import git_info
+from contextual.core.git_interactor import git_info, is_git_dir, create_feature_branch
 from contextual.model.app_data import Ticket
 
 
 class GitStatsPresenter:
+    selected_ticket: Ticket
+
     def __init__(self, parent_view):
+        self.selected_ticket = None
         self.parent_view = parent_view
         self.parent_view.btn_workspace.clicked.connect(self.select_directory)
-        self.selected_ticket = None
+        self.parent_view.btn_create_branch.clicked.connect(self.create_branch)
         app_settings.app_data.signals.ticket_changed.connect(self.refresh)
+        app_settings.app_data.signals.branch_changed.connect(self.update_view)
+        self.parent_view.btn_create_branch.setEnabled(False)
+
+    def create_branch(self):
+        # This may happen in a different presenter
+        # which is why we are handling an event here to refresh views
+        print("Dialog box to input branch name")
+        old_branch = "develop"
+        new_branch = "TECH-1-feature-branch"
+        create_feature_branch(self.selected_ticket.workspace_dir, old_branch, new_branch)
+        app_settings.app_data.update_branch(self.selected_ticket.workspace_dir)
 
     def select_directory(self):
         directory = self.parent_view.open_directory(
@@ -23,6 +37,7 @@ class GitStatsPresenter:
             QFileDialog.ShowDirsOnly
         )
         if directory:
+            print("Adding directory: " + directory)
             app_settings.app_data.add_workspace(self.selected_ticket.ticket_number, directory)
 
     def refresh(self, ticket: Ticket):
@@ -32,6 +47,7 @@ class GitStatsPresenter:
 
     def update_view(self, directory):
         self.parent_view.btn_workspace.setEnabled(self.selected_ticket is not None)
+        self.parent_view.btn_create_branch.setEnabled(is_git_dir(self.selected_ticket.workspace_dir))
 
         if directory:
             viewable_directory = truncate(directory)

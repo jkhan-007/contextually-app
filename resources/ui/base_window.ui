@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>856</width>
-    <height>692</height>
+    <height>728</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -211,6 +211,13 @@
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btn_create_branch">
+          <property name="text">
+           <string>Create Branch</string>
           </property>
          </widget>
         </item>

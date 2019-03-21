@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(856, 692)
+        MainWindow.resize(856, 728)
         MainWindow.setUnifiedTitleAndToolBarOnMac(True)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -108,6 +108,9 @@ class Ui_MainWindow(object):
         self.lbl_pending_changes.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.lbl_pending_changes.setObjectName("lbl_pending_changes")
         self.verticalLayout_2.addWidget(self.lbl_pending_changes)
+        self.btn_create_branch = QtWidgets.QPushButton(self.centralwidget)
+        self.btn_create_branch.setObjectName("btn_create_branch")
+        self.verticalLayout_2.addWidget(self.btn_create_branch)
         self.line = QtWidgets.QFrame(self.centralwidget)
         self.line.setFrameShape(QtWidgets.QFrame.HLine)
         self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
@@ -167,7 +170,8 @@ class Ui_MainWindow(object):
         self.btn_workspace.setText(_translate("MainWindow", "..."))
         self.lbl_branch_status.setText(_translate("MainWindow", "Branch Status"))
         self.lbl_pending_changes.setText(_translate("MainWindow", "Pending Changes"))
-        self.lbl_move_tickets.setText(_translate("MainWindow", "Move ticket to ..."))
+        self.btn_create_branch.setText(_translate("MainWindow", "Create Branch"))
+        self.lbl_move_tickets.setText(_translate("MainWindow", "Move to ..."))
         self.lbl_apps.setText(_translate("MainWindow", "Applications"))
         self.btn_add_application.setText(_translate("MainWindow", "Add Application"))
         self.txt_ticket_notes.setPlaceholderText(_translate("MainWindow", "Add your notes here ..."))
