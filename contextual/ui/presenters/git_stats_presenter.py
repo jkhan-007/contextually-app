@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QFileDialog
 
 from contextual.core import truncate, abbreviate
 from contextual.core.core_settings import app_settings
-from contextual.core.git_interactor import git_info, is_git_dir, create_feature_branch
+from contextual.core.git_interactor import git_info, is_git_dir
 from contextual.model.app_data import Ticket
 
 
@@ -22,13 +22,7 @@ class GitStatsPresenter:
         self.parent_view.btn_create_branch.setEnabled(False)
 
     def create_branch(self):
-        # This may happen in a different presenter
-        # which is why we are handling an event here to refresh views
-        print("Dialog box to input branch name")
-        old_branch = "develop"
-        new_branch = "TECH-1-feature-branch"
-        create_feature_branch(self.selected_ticket.workspace_dir, old_branch, new_branch)
-        app_settings.app_data.update_branch(self.selected_ticket.workspace_dir)
+        self.parent_view.show_branch_setup_dialog(self.selected_ticket)
 
     def select_directory(self):
         directory = self.parent_view.open_directory(

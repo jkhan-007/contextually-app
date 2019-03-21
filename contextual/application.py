@@ -8,14 +8,10 @@ from PyQt5.QtWidgets import qApp, QApplication, QDesktopWidget, QFileDialog, QMa
 
 import contextual
 from contextual.ui.configuration_dialog import ConfigurationDialog
+from contextual.ui.feature_branch_dialog import FeatureBranchDialog
 from contextual.ui.generated.base_window import Ui_MainWindow
 from contextual.ui.menus import file_menu
-from contextual.ui.presenters.apps_presenter import AppsPresenter
-from contextual.ui.presenters.git_stats_presenter import GitStatsPresenter
-from contextual.ui.presenters.main_presenter import MainPresenter
-from contextual.ui.presenters.ticket_content_presenter import TicketContentPresenter
-from contextual.ui.presenters.ticket_state_presenter import TicketStatePresenter
-from contextual.ui.presenters.tickets_list_presenter import TicketsListPresenter
+from contextual.ui.presenters import *
 from contextual.ui.progress_dialog import ProgressDialog
 from contextual.ui.toolbar import tool_bar_items
 from contextual.ui.updater_dialog import Updater
@@ -41,6 +37,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Custom Dialogs
         self.configuration_dialog = ConfigurationDialog(self)
         self.progress_dialog = ProgressDialog(self)
+        self.feature_branch_dialog = FeatureBranchDialog(self)
 
         # Initialise Components
         file_menu(self)
@@ -107,6 +104,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def show_jira_configuration_dialog(self):
         self.configuration_dialog.show_dialog()
+
+    def show_branch_setup_dialog(self, selected_ticket):
+        self.feature_branch_dialog.show_dialog(selected_ticket)
 
     def open_directory(self, dialog_title, dialog_location, flags):
         return QFileDialog.getExistingDirectory(
