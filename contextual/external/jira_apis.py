@@ -3,7 +3,7 @@ import os
 from contextual.external import requester
 from contextual.external.mock_jira_apis import MockJiraApi
 
-is_offline = os.getenv("OFFLINE", "false").lower() == "true"
+is_offline = os.getenv("MOCKED", "false").lower() == "true"
 
 
 class JiraApi:
@@ -16,6 +16,7 @@ class JiraApi:
         if is_offline:
             mock_jira_api = MockJiraApi()
             return mock_jira_api
+
         server, user, password = args
         jira_api = cls()
         jira_api.server = server
