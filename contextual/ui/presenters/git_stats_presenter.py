@@ -52,4 +52,4 @@ class GitStatsPresenter:
             self.parent_view.lbl_pending_changes.setText(f"Pending Changes {no_changes}")
         else:
             self.parent_view.lbl_workspace_dir.setText("select workspace directory 👉")
-            self.parent_view.lbl_branch_status.setText("(branch) (pending changes)")
+            self.parent_view.lbl_branch_status.setText("(branch)")
