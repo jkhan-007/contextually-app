@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>474</width>
-    <height>268</height>
+    <width>475</width>
+    <height>318</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,7 +23,7 @@
    <property name="geometry">
     <rect>
      <x>350</x>
-     <y>230</y>
+     <y>280</y>
      <width>113</width>
      <height>31</height>
     </rect>
@@ -36,7 +36,7 @@
    <property name="geometry">
     <rect>
      <x>230</x>
-     <y>230</y>
+     <y>280</y>
      <width>113</width>
      <height>30</height>
     </rect>
@@ -49,7 +49,7 @@
    <property name="geometry">
     <rect>
      <x>140</x>
-     <y>120</y>
+     <y>148</y>
      <width>321</width>
      <height>21</height>
     </rect>
@@ -100,7 +100,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>- Checks out main branch (As shown below and can be changed)</string>
+    <string>- Checks out main branch (As shown and can be changed)</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_4">
@@ -113,14 +113,14 @@
     </rect>
    </property>
    <property name="text">
-    <string>- Creates a check out new branch</string>
+    <string>- Creates and checks out new branch</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_5">
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>120</y>
+     <y>148</y>
      <width>111</width>
      <height>20</height>
     </rect>
@@ -133,7 +133,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>160</y>
+     <y>188</y>
      <width>111</width>
      <height>20</height>
     </rect>
@@ -146,7 +146,7 @@
    <property name="geometry">
     <rect>
      <x>140</x>
-     <y>160</y>
+     <y>188</y>
      <width>321</width>
      <height>21</height>
     </rect>
@@ -156,7 +156,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>200</y>
+     <y>258</y>
      <width>441</width>
      <height>16</height>
     </rect>
@@ -165,7 +165,43 @@
     <string>Error message</string>
    </property>
   </widget>
+  <widget class="QCheckBox" name="chk_apply_stash">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>228</y>
+     <width>221</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Apply Stash on new branch</string>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_7">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>99</y>
+     <width>391</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>- Apply Stash (If selected)</string>
+   </property>
+  </widget>
  </widget>
+ <tabstops>
+  <tabstop>txt_main_branch</tabstop>
+  <tabstop>txt_feature_branch</tabstop>
+  <tabstop>chk_apply_stash</tabstop>
+  <tabstop>btn_cancel_create_branch</tabstop>
+  <tabstop>btn_create_branch</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
