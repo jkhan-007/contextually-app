@@ -4,8 +4,19 @@ QToolBar {
     border-bottom: 1px solid #4D545B;
 }
 
-QListView#list_apps {
+QListWidget QPushButton {
+    color: white;
+    background-color: #141E50;
+    border: none;
+    border-radius: 6px;
+}
+
+QListView {
     font-size: 16px;
+}
+
+QListView::item:selected {
+    color: black;
 }
 
 QLabel#lbl_branch_status {

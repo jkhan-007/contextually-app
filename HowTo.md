@@ -19,7 +19,7 @@ docker run --rm -ti -v $(pwd):/data imon/pyinstaller build packaging/pyinstaller
 For Apple
 
 ```
-python3 -m PyInstaller --clean packaging/pyinstaller/contextually.osx.spec
+py2app ...
 ```
 
 #### Icons from
@@ -29,7 +29,7 @@ https://icons8.com/icon/pack/free-icons/ios-glyphs
 #### Generate Resources
 
 ```
-$ pyrcc5 -compress 9 -o contextual/resources.py contextual/resources.qrc
+$ pyrcc5 -compress 9 -o contextual/resources_rc.py contextual/resources.qrc
 ```
 
 #### Generate code from ui files

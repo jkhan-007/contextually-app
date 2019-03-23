@@ -1,6 +1,7 @@
 import logging
+
 from PyQt5 import QtWidgets
-from PyQt5.QtGui import QIcon, QStandardItemModel
+from PyQt5.QtGui import QIcon
 
 from contextual.core.core_settings import app_settings
 from contextual.core.jira_interactor import JiraInteractor
@@ -11,7 +12,6 @@ class TicketsListPresenter:
     def __init__(self, tickets_list, parent_view):
         self.parent_view = parent_view
         self.tickets_list_widget = tickets_list
-        self.model = QStandardItemModel()
         self.tickets_list_widget.clicked.connect(self.on_double_clicked)
         self.jira_interactor = JiraInteractor()
         app_settings.app_data.signals.index_changed.connect(self.refresh)

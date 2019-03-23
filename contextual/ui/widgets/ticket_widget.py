@@ -26,9 +26,6 @@ class TicketWidget(QtWidgets.QWidget):
         self.lbl_ticket_status.setStyleSheet('''
             QPushButton {
                 padding: -5px;
-                color: white;
-                background-color: blue;
-                border: none;
             }
         ''')
         self.lbl_ticket_title = QtWidgets.QLabel()
