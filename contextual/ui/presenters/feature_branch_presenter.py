@@ -1,5 +1,5 @@
 from contextual.core.core_settings import app_settings
-from contextual.core.git_interactor import create_feature_branch, apply_stash
+from contextual.core.git_interactor import create_feature_branch, apply_stash, git_info
 from contextual.model.app_data import Ticket
 
 
@@ -19,6 +19,9 @@ class FeatureBranchPresenter:
         branch_prefix = f"{self.selected_ticket.ticket_number}-"
         self.view.txt_feature_branch.setText(branch_prefix)
         self.view.lbl_error.setText("")
+        _, changes = git_info(self.selected_ticket.workspace_dir)
+        self.view.chk_apply_stash.setChecked(changes > 0)
+        self.view.chk_apply_stash.setEnabled(changes > 0)
         self.view.show()
 
     def apply_stash_checked(self):
