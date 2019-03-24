@@ -11,6 +11,10 @@ QListWidget QPushButton {
     border-radius: 6px;
 }
 
+QListWidget::item:selected {
+   background: #CBD8E1;
+}
+
 QListView {
     font-size: 16px;
 }
