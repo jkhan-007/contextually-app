@@ -24,7 +24,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
         self.resize(1024, 768)
-        self.setWindowTitle('Contextual - Focused workflow for developers')
+        self.setWindowTitle('Contextually - Focused workflow for developers')
         self.setWindowIcon(QIcon(":/images/contextually.png"))
 
         # Add Components on Main Window
